@@ -11,16 +11,8 @@ package todolistmanager;
 
 
 import java.util.*;
-import java.lang.Exception;
 import java.io.*;
-import java.io.FileWriter;
-import java.nio.*;
-import java.nio.file.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.charset.Charset;
 import java.util.Date;
-import java.text.SimpleDateFormat;
-import java.text.ParseException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -32,133 +24,161 @@ import java.io.ObjectOutputStream;
 
 public class TaskManager
 {
-  List<Task> list;
-  
+  List<Task> tasklist;
   File file;
-  public TaskManager()
-  {
-      list= new ArrayList<Task>();
-      file =new File("TaskList.txt");
-      initializeListFromFile();
-  }
   
-  public void createTask(String taskTitle,String taskCategory,boolean taskStatus,Date dueDate)
+  
+    public TaskManager()
+    {
+        tasklist= new ArrayList<Task>();
+        file =new File("TaskList.ser");
+    }
+  
+    public Task createTask(String taskTitle,String taskCategory,boolean taskStatus,Date dueDate)
+    {
+        Task task = new Task(taskTitle ,dueDate,taskStatus,taskCategory); //(String name, Date dueDate, boolean status, Project proj)
+         return task;
+    }
+
+    public boolean addTask(Object o)
+    {
+       Task newTask= (Task)o; 
+        if(!checkIfTaskExists(newTask))
+                  {
+              tasklist.add(newTask);
+              return true;
+              }
+          else
+              return false;
+    }
+    
+    public void updateTask(Object oldTask, Object updatedTask)
+    {
+        Task task= (Task)oldTask;
+        Task updated= (Task)updatedTask;
+        int index=tasklist.indexOf(task);
+        tasklist.set(index, updated);
+        
+    }
+
+
+    public void deleteTask(Object o)
+    {
+        Task taskToRemove=(Task)o;
+        tasklist.remove(taskToRemove);
+    }
+
+ 
+    void displayAll()
+    {
+       for(int i=1;i<=tasklist.size();i++)
+       {
+           System.out.println(i + ". " + tasklist.get(i-1).toString());
+       }
+    }
+    
+    void saveToFile()
+    {
+       try{
+       FileOutputStream f = new FileOutputStream(file);
+                         ObjectOutputStream o = new ObjectOutputStream(f);
+
+                  for(Task t:tasklist)
+                 {
+                    o.writeObject(t);
+                 }
+
+
+
+                 o.close();
+                 f.close();
+                 } 
+       catch (FileNotFoundException e) {
+                 System.out.println("File not found");
+                 } 
+       catch (IOException e) {
+                 System.out.println("Error initializing stream");
+                 } 
+    }
+  
+  
+   
+    void sortByProject()
+    {
+              Collections.sort(tasklist, Task.taskProjectComparator);
+              displayAll();
+    }
+   
+   
+    void sortByDate()
+    {
+               Collections.sort(tasklist, Task.taskdueDateComparator);
+               displayAll();
+    }
+           
+    final void initializeListFromFile()
+    {
+        
+        try
+        {
+          ObjectInputStream oi = new ObjectInputStream(new FileInputStream(file));
+          Task readTask;
+          while((readTask = (Task) oi.readObject()) != null)
           {
-      Task A = new Task(taskTitle ,dueDate,taskStatus,taskCategory); //(String name, Date dueDate, boolean status, Project proj)
-      addTask(A);
- }
-
-  public void addTask(Task A){
-      list.add(A);
- }
-
-
- public void deleteTask(Task A){
-     list.remove(A);
- }
-
- public void displayTaskList() throws IOException
- {
-
-   FileReader fr=new FileReader("TaskList.txt");
-   BufferedReader br=new BufferedReader(fr);
-   Charset utf8 = StandardCharsets.UTF_8;
-   int i;
-   String line=br.readLine();
-   while((line)!= null){
-   System.out.print(line);
-   line=br.readLine();
-   }
-   br.close();
-   fr.close();
- }
- 
- 
- 
-  void displayAll()
- {
-     for(Task t:list)
-     {
-         System.out.println(t.toString());
-     }
- }
-   void save() throws IOException{
-      try {
-
-          BufferedWriter bw =new BufferedWriter(new FileWriter(file,true));
-
-          for(Task m : list)
-            {
-
-              bw.write(m.toString());
-              bw.write("\n");
+                // Read objects
+                tasklist.add(readTask);
             }
-
-
-            bw.close();
-
-
-          } catch (FileNotFoundException e) {
-              e.printStackTrace();
-          } catch (IOException e) {
-              e.printStackTrace();
-          }
-      }
-  
-   void saveToFile()
-  {
-      try{
-      FileOutputStream f = new FileOutputStream(file);
-			ObjectOutputStream o = new ObjectOutputStream(f);
-
-		 for(Task t:list)
-                {
-                   o.writeObject(t);
-                }
-			
-			
-
-                o.close();
-                f.close();
-                } 
-      catch (FileNotFoundException e) {
-                System.out.println("File not found");
-		} 
-      catch (IOException e) {
-		System.out.println("Error initializing stream");
-		} 
-  }
-  
-  
-  final void initializeListFromFile()
-  {
-      try{
-          
-          FileInputStream fi = new FileInputStream(file);
-			ObjectInputStream oi = new ObjectInputStream(fi);
-                        if(( oi.readObject()) != null)
-                        {
-                            while(( oi.readObject()) != null)
-                            {
-                                // Read objects
-                                Task t = (Task) oi.readObject();
-                                list.add(t);
-                            }
-                        }
+           oi.close();
+           Collections.sort(tasklist,Task.taskdueDateComparator);
                         
-      } 
-      catch (FileNotFoundException e) {
+        } 
+        catch (FileNotFoundException e) 
+        {
                 System.out.println("File not found");
-		} 
-      catch (IOException e) {
+	} 
+        catch (EOFException e) {
+	} 
+        catch (IOException e) 
+        {
 		System.out.println("Error initializing stream");
-		} 
-       catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
+	} 
+        catch (ClassNotFoundException e) 
+        {
 			e.printStackTrace();
-		}
+	}
 
-  }
+    }
+  
+  
+    boolean checkIfTaskExists(Task newTask)
+    {
+       boolean isTaskExists= false;
+        for(Task t:tasklist)
+       {
+           isTaskExists =  t.equals(newTask);
+       }
+        return isTaskExists;
+
+    }
+    
+    Task selectGivenTask(String taskTitle, String taskCategory)
+    {
+        Task selectedTask =(tasklist.stream().filter(t-> t.geTaskTitle().toLowerCase().equals(taskTitle.toLowerCase())
+                                    && t.getTaskProject().toLowerCase().equals(taskCategory.toLowerCase())
+                                    )
+                                   .findFirst()
+                                   .get());
+        return selectedTask;
+    }
+    
+    void markAsDone(Object o)
+    {
+        Task markTaskDone= (Task)o;
+       if((markTaskDone) != null)
+             markTaskDone.setTaskStatusDone();
+    }
+   
+    
 }
  
 
