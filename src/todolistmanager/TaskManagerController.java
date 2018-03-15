@@ -78,20 +78,32 @@ public class TaskManagerController {
 
         void editTaskDetails()
         {
-            int userChoice = 0;
+            int userChoice = 0,taskIndex;
+            String taskIndexChoice;
             Scanner sc=new Scanner(System.in);
             String taskTitle,taskCategory;
             Object taskToUpdate;
+            System.out.println("Do you want to update by Index? Enter Yes / No");
+             taskIndexChoice= sc.nextLine();
+            if(taskIndexChoice.toLowerCase().equals("yes"))
+            {
+            System.out.println("Enter Task No to be updated");
+             taskIndex= sc.nextInt();
+            taskToUpdate=taskManager.selectGivenTask(taskIndex);
+            }
+            else
+            {
                 System.out.println("Enter Task title to be updated");
                 taskTitle= sc.nextLine();
                 System.out.println("Enter Task Category to be updated");
                 taskCategory= sc.nextLine();
                 taskToUpdate=taskManager.selectGivenTask(taskTitle,taskCategory);
+            }
                 if(taskToUpdate!= null)
                 System.out.println(taskToUpdate.toString());
                 else
                  userChoice=4;
-                
+           
         while(userChoice != 4)
         {
                 System.out.println("-----------------------------------------------");

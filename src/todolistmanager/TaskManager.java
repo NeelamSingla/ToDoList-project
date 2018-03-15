@@ -163,6 +163,20 @@ public class TaskManager
             }
             return null;
         }
+         
+        Task selectGivenTask(int taskIndex)
+        {
+            try{
+            Task selectedTask =tasklist.get(taskIndex-1);
+           
+            return selectedTask;
+            }
+            catch(NoSuchElementException ex)
+            {
+                System.out.println("No Such Task Exist in To Do List");
+            }
+            return null;
+        }
 
         void markAsDone(Object o)
         {
