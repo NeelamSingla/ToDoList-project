@@ -36,7 +36,7 @@ public class TaskManager
   
     public Task createTask(String taskTitle,String taskCategory,boolean taskStatus,Date dueDate)
     {
-        Task task = new Task(taskTitle ,dueDate,taskStatus,taskCategory); //(String name, Date dueDate, boolean status, Project proj)
+        Task task = new Task(taskTitle ,taskCategory,taskStatus,dueDate); //(String name, Date dueDate, boolean status, Project proj)
          return task;
     }
 
@@ -161,9 +161,9 @@ public class TaskManager
 
     }
     
-    Task selectGivenTask(String taskTitle, String taskCategory)
+     Task selectGivenTask(String taskTitle, String taskCategory)
     {
-        Task selectedTask =(tasklist.stream().filter(t-> t.geTaskTitle().toLowerCase().equals(taskTitle.toLowerCase())
+        Task selectedTask =(tasklist.stream().filter(t-> t.getTaskTitle().toLowerCase().equals(taskTitle.toLowerCase())
                                     && t.getTaskProject().toLowerCase().equals(taskCategory.toLowerCase())
                                     )
                                    .findFirst()

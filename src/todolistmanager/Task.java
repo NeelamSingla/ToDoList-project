@@ -18,7 +18,7 @@ private Date dueDate;
 private boolean isDone;
 private String projectCategory;
 
-    public Task(String taskTitle, Date dueDate, boolean isDone, String category){
+    public Task(String taskTitle,String category, boolean isDone,  Date dueDate){
          this.taskTitle=taskTitle;
          this.dueDate=dueDate;
          this.isDone=isDone;
@@ -28,17 +28,17 @@ private String projectCategory;
     }
  
  
-    String geTaskTitle()
+    String getTaskTitle()
     {
               return taskTitle;
     }
 
-    Date geTaskDueDate()
+    Date getTaskDueDate()
     {
       return dueDate;
     }
 
-    String geTaskStatus()
+    String getTaskStatus()
     {
       return isDone == true? "Done" :"To DO";
     }
@@ -53,7 +53,7 @@ private String projectCategory;
     }
 
     public boolean equals(Task t) {
-        return (this.geTaskTitle().toLowerCase().equals(t.geTaskTitle().toLowerCase())
+        return (this.getTaskTitle().toLowerCase().equals(t.getTaskTitle().toLowerCase())
                 && 
                 this.getTaskProject().toLowerCase().equals(t.getTaskProject().toLowerCase()
                 ));
@@ -62,15 +62,15 @@ private String projectCategory;
 
     @Override
     public String toString(){
-      return this.getTaskProject() + " " + this.geTaskTitle() +
-              " " +this.dueDate + " " + this.geTaskStatus() ;
+      return this.getTaskProject() + " " + this.getTaskTitle() +
+              " " +this.dueDate + " " + this.getTaskStatus() ;
     }
 
         @Override
         public int compareTo(Task t) {
-            if (geTaskDueDate() == null || t.geTaskDueDate() == null)
+            if (getTaskDueDate() == null || t.getTaskDueDate() == null)
           return 0;
-        return geTaskDueDate().compareTo(t.geTaskDueDate());
+        return getTaskDueDate().compareTo(t.getTaskDueDate());
 
             }
 
@@ -89,8 +89,8 @@ private String projectCategory;
         public static Comparator<Task> taskdueDateComparator = new Comparator<Task>() {
 
            public int compare(Task t1, Task t2) {
-              Date taskdueDate1 = t1.geTaskDueDate();
-              Date taskdueDate2 = t2.geTaskDueDate();
+              Date taskdueDate1 = t1.getTaskDueDate();
+              Date taskdueDate2 = t2.getTaskDueDate();
 
               //ascending order
               return taskdueDate1.compareTo(taskdueDate2);

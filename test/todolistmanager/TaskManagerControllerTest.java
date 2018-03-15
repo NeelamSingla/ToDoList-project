@@ -5,7 +5,11 @@
  */
 package todolistmanager;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.InputMismatchException;
+import junit.framework.Assert;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -19,11 +23,15 @@ import static org.junit.Assert.*;
  */
 public class TaskManagerControllerTest {
     
+     TaskManager taskManager;
+     TaskManagerController taskManagerController;
     public TaskManagerControllerTest() {
+        
     }
     
     @BeforeClass
     public static void setUpClass() {
+      
     }
     
     @AfterClass
@@ -32,6 +40,8 @@ public class TaskManagerControllerTest {
     
     @Before
     public void setUp() {
+         taskManager = new TaskManager();
+         taskManagerController = new TaskManagerController();
     }
     
     @After
@@ -42,24 +52,68 @@ public class TaskManagerControllerTest {
      * Test of enterTaskDetails method, of class TaskManagerController.
      */
     @Test
-    public void testEnterTaskDetails() {
-       // System.out.println("enterTaskDetails");
-       // TaskManagerController instance = new TaskManagerController();
-       // Object expResult = null;
-       // Object result = instance.enterTaskDetails();
-        //assertEquals(expResult, result);
+    public void testEnterTaskDetailsForInvalidDate() {
+        try{
+          
+         Date dueDate =new SimpleDateFormat("dd/MM/yyyy").parse("01");
+        Object CreatedTask = taskManager.createTask("shopping","Home",false,dueDate);
+        fail("Invalid Date");
+        }
+        catch (InputMismatchException e) {
+        }
+        catch (ParseException ex) {
+           
+                  
+        } 
         
     }
+    
+    
 
     /**
      * Test of addTask method, of class TaskManagerController.
      */
     @Test
     public void testAddTask() {
-        System.out.println("addTask");
-        Task t= new Task("dummyTask",new Date("02/02/2018"),true,"dummyProject");
-        TaskManagerController instance = new TaskManagerController();
-        instance.addTask(t);
+        try{
+       Date dueDate =new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
+        Object CreatedTask = taskManager.createTask("shopping","Home",false,dueDate);
+        String actual,expected= "Task is added in TODO List";
+        taskManagerController.addTask(CreatedTask);
+        Boolean IfTaskExists = taskManager.checkIfTaskExists((Task)CreatedTask);
+        if(!IfTaskExists)
+         actual = "Task is added in TODO List";
+        else
+          actual = "Task is already present in TODO List";
+        assertEquals(expected, actual);
+        }
+        catch (InputMismatchException e) {
+        }
+        catch (ParseException ex) {
+         } 
+        // TODO review the generated test code and remove the default call to fail.
+        
+    }
+
+     @Test
+    public void testAddTaskforDuplicateTask() {
+        try{
+       Date dueDate =new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
+        Object CreatedTask = taskManager.createTask("shopping","Home",false,dueDate);
+        String actual,expected= "Task is already present in TODO List";
+        
+        taskManagerController.addTask(CreatedTask);
+         Boolean IfTaskExists = taskManager.addTask(CreatedTask);
+      if(!IfTaskExists)
+         actual = "Task is added in TODO List";
+        else
+          actual = "Task is already present in TODO List";
+        assertEquals(expected, actual);
+        }
+        catch (InputMismatchException e) {
+        }
+        catch (ParseException ex) {
+         } 
         // TODO review the generated test code and remove the default call to fail.
         
     }
@@ -69,9 +123,7 @@ public class TaskManagerControllerTest {
      */
     @Test
     public void testDisplayAll() {
-        System.out.println("displayAll");
-        TaskManagerController instance = new TaskManagerController();
-        instance.displayAll();
+        taskManagerController.displayAll();
         // TODO review the generated test code and remove the default call to fail.
         
     }
