@@ -21,34 +21,37 @@ public class TodoListStartup {
         // TODO code application logic here
       
       Scanner sc=new Scanner(System.in);
-      TaskManagerController input= new TaskManagerController();
-      input.InitilizeSavedTaskList();
+      TaskManagerController taskManagerController= new TaskManagerController();
+      taskManagerController.InitilizeSavedTaskList();
       int userChoice = 0;
     while(userChoice != 6)
     {
-          System.out.println("Welcome to ToDoList.Please choose some option");
+            System.out.println("-----------------------------------------------");  
+            System.out.println("Welcome to ToDoList.Please choose some option");
+            System.out.println("-----------------------------------------------");  
             System.out.println("1. Add Task");
             System.out.println("2. Edit Task");
-            System.out.println("3. Display all Sort Task by date and project");
-            System.out.println("4. Sort Task by date");
-            System.out.println("5. Sort Task by project");
+            System.out.println("3. Display all task");
+            System.out.println("4. Disply Task sorted by date ");
+            System.out.println("5. Disply Task sorted by project");
             System.out.println("6. Save and Quit");
+            System.out.println("-----------------------------------------------");  
             userChoice=sc.nextInt();
         switch(userChoice)
          {
           case 1:
-                     Object o =input.enterTaskDetails();
-                     input.addTask(o);
+                     Object o =taskManagerController.enterTaskDetails();
+                     taskManagerController.addTask(o);
                       break;
-          case 2:     input.editTaskDetails();
+          case 2:     taskManagerController.editTaskDetails();
                       break;
-          case 3:     input.displayAll();
+          case 3:     taskManagerController.displayAll();
                       break;
-          case 4:     input.sortByDate();
+          case 4:     taskManagerController.sortByDate();
                       break;
-          case 5:     input.sortByProject();
+          case 5:     taskManagerController.sortByProject();
                       break;
-          case 6:     input.saveToFile();
+          case 6:     taskManagerController.saveToFile();
                 System.out.println("Thanks for using TodoList");
         }
     }
