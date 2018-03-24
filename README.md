@@ -38,8 +38,10 @@ Task is added in TODO List
 
 If user choose 2, It asks for some information like
 ----------------------------------------------
+
 Do you want to update by Index? Enter Yes / No
 yes
+
 Enter Task No to be updated
 1
 it shows existing task if any and gives option to edit it. 
