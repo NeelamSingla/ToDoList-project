@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package todolistmanager;
 
 import java.text.ParseException;
@@ -12,19 +7,27 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
- *
+ * Controller class to pass all task related operations
+ * call to Task manager Model
  * @author Neelam
  */
 public class TaskManagerController {
     TaskManager taskManager;
     
     
+        /**
+         * Constructor to initialize Task Manager Model
+         */
         TaskManagerController()
         {
          taskManager = new TaskManager();
          
         }
         
+        /**
+         * Initialize tasks from file if any
+         * and display all tasks
+         */
         void InitilizeSavedTaskList()
         {
                 taskManager.initializeListFromFile();
@@ -32,6 +35,10 @@ public class TaskManagerController {
 
         } 
 
+        /**
+         * Method to take user input for all task details
+         * @return 
+         */
         Object enterTaskDetails()
         {
             try {
@@ -62,6 +69,10 @@ public class TaskManagerController {
             return null;
         }
         
+        /**
+         * Add Task in list passed as Object 
+         * @param o -Its a new task passed as object
+         */
         void addTask(Object o)
         {
               boolean  isTaskCreated=taskManager.addTask(o);  
@@ -71,11 +82,20 @@ public class TaskManagerController {
                     System.out.println("Task is added in TODO List");
         }      
 
+        /**
+         * Display all Tasks
+         */
         void displayAll()
         {
              taskManager.displayAll();
         }
-
+        
+       
+       /**
+        * Asks user details of task to edit
+        * either by Task no
+        * or By Task Title and Task Category
+        */ 
         void editTaskDetails()
         {
             int userChoice = 0,taskIndex;
@@ -134,17 +154,26 @@ public class TaskManagerController {
         }
         }
 
+        /**
+         * Sort Task by Date
+         */
         void sortByDate()
         {
                taskManager.sortByDate();
         }
 
+        /**
+         * Sort Task by project
+         */
         void sortByProject()
         {
                 taskManager.sortByProject();
         }
 
-          void saveToFile()
+        /**
+         * Save Task to file
+         */
+        void saveToFile()
         {
           taskManager.saveToFile();
         }
