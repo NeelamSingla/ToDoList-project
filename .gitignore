@@ -4,6 +4,4 @@
 build.xml
 manifest.mf
 /nbproject/
-/ToDoList-Project/nbproject/private/
-/ToDoList-Project/build/
-/ToDoList-Project/dist/
+/.DS_Store/
