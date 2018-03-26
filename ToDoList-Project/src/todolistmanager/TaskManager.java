@@ -1,12 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package todolistmanager;
 
 
@@ -22,7 +13,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 /**
- *
+ * Task Manager class like Model to perform all
+ * task related stuff
  * @author Neelam
  */
 public class TaskManager
@@ -31,6 +23,10 @@ public class TaskManager
   File file;
   
   
+        /**
+         * Constructor to initialize task list and 
+         * and also file name from where to restore saved tasks
+         */      
         public TaskManager()
         {
             tasklist= new ArrayList<>();
@@ -72,13 +68,25 @@ public class TaskManager
             }
 
         }
-        
+        /**
+         * Create new task with given details
+         * @param taskTitle
+         * @param taskCategory
+         * @param taskStatus
+         * @param dueDate
+         * @return 
+         */
         public Task createTask(String taskTitle,String taskCategory,boolean taskStatus,Date dueDate)
         {
             Task task = new Task(taskTitle ,taskCategory,taskStatus,dueDate); //(String name, Date dueDate, boolean status, Project proj)
              return task;
         }
 
+        /**
+         * Add Task if it does not exist earlier
+         * @param o
+         * @return 
+         */
         public boolean addTask(Object o)
         {
            Task newTask= (Task)o; 
@@ -91,6 +99,11 @@ public class TaskManager
                   return false;
         }
 
+        /**
+         * Update Task
+         * @param oldTask- task to be updated
+         * @param updatedTask - task with new details
+         */
         public void updateTask(Object oldTask, Object updatedTask)
         {
             Task task= (Task)oldTask;
@@ -100,12 +113,19 @@ public class TaskManager
 
         }
 
+        /**
+         * Delete Task passed as object
+         * @param  o It is Task type object
+         */
         public void deleteTask(Object o)
         {
             Task taskToRemove=(Task)o;
             tasklist.remove(taskToRemove);
         }
 
+        /**
+         * Display all tasks present in ToDo List
+         */
         void displayAll()
         {
            for(int i=1;i<=tasklist.size();i++)
@@ -114,18 +134,30 @@ public class TaskManager
            }
         }
 
+        /**
+         * Sort all tasks by Project
+         */
         void sortByProject()
         {
                   Collections.sort(tasklist, Task.taskProjectComparator);
                   displayAll();
         }
 
+        /**
+         * Sort all tasks by Date
+         */
         void sortByDate()
         {
                    Collections.sort(tasklist, Task.taskdueDateComparator);
                    displayAll();
         }
 
+        /**
+         * Check If Task with same Title and same category is 
+         * already present in the list
+         * @param newTask
+         * @return 
+         */
         boolean checkIfTaskExists(Task newTask)
         {
            boolean isTaskExists= false;
@@ -138,11 +170,11 @@ public class TaskManager
         }
         
         /**
-         * Select task from task list which has same  Task title and Task Cateogory
+         * Select task from task list which has same  Task title and Task Category
          * as provided in parameters
          * @param taskTitle
          * @param taskCategory
-         * @return 
+         * @return Task if it is present
          */
          Task selectGivenTask(String taskTitle, String taskCategory)
         {
@@ -163,13 +195,26 @@ public class TaskManager
             }
             return null;
         }
-         
+        
+         /**
+          * Select task from task list which has same  Task title and Task Category
+          * as provided in parameters
+          * @param taskIndex
+          * @return 
+          */
         Task selectGivenTask(int taskIndex)
         {
             try{
-            Task selectedTask =tasklist.get(taskIndex-1);
-           
-            return selectedTask;
+                if(taskIndex < tasklist.size()-1)
+                    {
+                     Task selectedTask =tasklist.get(taskIndex-1);
+                     return selectedTask;
+                      }  
+               else{
+                     System.out.println("No Such Task Exist in To Do List");
+                    }
+                    
+                    
             }
             catch(NoSuchElementException ex)
             {
@@ -178,6 +223,10 @@ public class TaskManager
             return null;
         }
 
+        /**
+         * Mark Task status as Done
+         * @param o its Task passed as Object
+         */
         void markAsDone(Object o)
         {
             Task markTaskDone= (Task)o;
@@ -185,6 +234,9 @@ public class TaskManager
                  markTaskDone.setTaskStatusDone();
         }
    
+        /**
+         * Save all tasks in file in serialized format
+         */
         void saveToFile()
         {
            try{

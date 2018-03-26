@@ -1,25 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package todolistmanager;
 
 import java.util.Scanner;
 
 /**
- *
+ * start up to start ToDo List application
  *  @author Neelam
  */
 public class TodoListStartup {
 
     /**
+     * Main method to show menu to user
+     * for performing task related operations
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
-      
       Scanner sc=new Scanner(System.in);
       TaskManagerController taskManagerController= new TaskManagerController();
       taskManagerController.InitilizeSavedTaskList();
@@ -56,9 +50,6 @@ public class TodoListStartup {
         }
     }
   }
-    
-
-            
 }
     
 
