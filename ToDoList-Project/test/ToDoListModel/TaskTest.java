@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package todolistmanager;
+package ToDoListModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,27 +13,28 @@ import static org.junit.Assert.*;
 import org.junit.Ignore;
 
 /**
+ * Test file to Test Task file
  *
- * @author tmp-sda-1160
  */
 public class TaskTest {
-    
+
     Task expectedTask;
+
     public TaskTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -48,18 +44,15 @@ public class TaskTest {
      */
     @Test
     public void testGetTaskTitle() {
-        try{
-        Date dueDate =new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
-        expectedTask = new Task("shopping","Home",false,dueDate);
-        String actual="shopping";
-        String expected=expectedTask.getTaskTitle();
-        assertEquals(expected, actual);
+        try {
+            Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
+            expectedTask = new Task("shopping", "Home", false, dueDate);
+            String actual = "shopping";
+            String expected = expectedTask.getTaskTitle();
+            assertEquals(expected, actual);
+        } catch (InputMismatchException | ParseException e) {
         }
-        catch (InputMismatchException e) {
-        }
-        catch (ParseException ex) {
-         } 
-        
+
     }
 
     /**
@@ -67,16 +60,13 @@ public class TaskTest {
      */
     @Test
     public void testGetTaskDueDate() {
-       try{
-        Date dueDate =new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
-        expectedTask = new Task("shopping","Home",false,dueDate);
-        Date actual=expectedTask.getTaskDueDate();
-        assertEquals(dueDate, actual);
+        try {
+            Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
+            expectedTask = new Task("shopping", "Home", false, dueDate);
+            Date actual = expectedTask.getTaskDueDate();
+            assertEquals(dueDate, actual);
+        } catch (InputMismatchException | ParseException e) {
         }
-        catch (InputMismatchException e) {
-        }
-        catch (ParseException ex) {
-         } 
     }
 
     /**
@@ -84,17 +74,14 @@ public class TaskTest {
      */
     @Test
     public void testGetTaskStatus() {
-        try{
-        Date dueDate =new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
-        expectedTask = new Task("shopping","Home",false,dueDate);
-        String expected="To DO";
-        String  actual=expectedTask.getTaskStatus();
-        assertEquals(expected, actual);
+        try {
+            Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
+            expectedTask = new Task("shopping", "Home", false, dueDate);
+            String expected = "To DO";
+            String actual = expectedTask.getTaskStatus();
+            assertEquals(expected, actual);
+        } catch (InputMismatchException | ParseException e) {
         }
-        catch (InputMismatchException e) {
-        }
-        catch (ParseException ex) {
-         } 
     }
 
     /**
@@ -102,17 +89,14 @@ public class TaskTest {
      */
     @Test
     public void testGetTaskProject() {
-         try{
-        Date dueDate =new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
-        expectedTask = new Task("shopping","Home",false,dueDate);
-        String actual="Home";
-        String expected=expectedTask.getTaskProject();
-        assertEquals(expected, actual);
+        try {
+            Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
+            expectedTask = new Task("shopping", "Home", false, dueDate);
+            String actual = "Home";
+            String expected = expectedTask.getTaskProject();
+            assertEquals(expected, actual);
+        } catch (InputMismatchException | ParseException e) {
         }
-        catch (InputMismatchException e) {
-        }
-        catch (ParseException ex) {
-         } 
     }
 
     /**
@@ -120,17 +104,14 @@ public class TaskTest {
      */
     @Ignore
     public void testSetTaskStatusDone() {
-       try{
-        Date dueDate =new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
-        expectedTask = new Task("shopping","Home",false,dueDate);
-        String actual="Home";
-        String expected=expectedTask.getTaskProject();
-        assertEquals(expected, actual);
+        try {
+            Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
+            expectedTask = new Task("shopping", "Home", false, dueDate);
+            String actual = "Home";
+            String expected = expectedTask.getTaskProject();
+            assertEquals(expected, actual);
+        } catch (InputMismatchException | ParseException e) {
         }
-        catch (InputMismatchException e) {
-        }
-        catch (ParseException ex) {
-         } 
     }
 
     /**
@@ -176,5 +157,5 @@ public class TaskTest {
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }
-    
+
 }
