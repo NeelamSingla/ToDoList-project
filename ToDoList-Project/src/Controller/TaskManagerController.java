@@ -10,7 +10,7 @@ import java.util.Date;
  * @author Neelam Singla
  */
 public class TaskManagerController {
-
+    
     TaskManager taskManager;
 
     /**
@@ -18,7 +18,7 @@ public class TaskManagerController {
      */
     public TaskManagerController() {
         taskManager = new TaskManager();
-
+        
     }
 
     /**
@@ -26,7 +26,7 @@ public class TaskManagerController {
      */
     public void InitilizeSavedTaskList() {
         taskManager.initializeListFromFile();
-
+        
     }
 
     /**
@@ -40,7 +40,7 @@ public class TaskManagerController {
      */
     public Object createTask(String taskTitle, String taskCategory, boolean taskStatus, Date dueDate) {
         Object CreatedTask = taskManager.createTask(taskTitle, taskCategory, taskStatus, dueDate);
-
+        
         return CreatedTask;
     }
 
@@ -96,9 +96,9 @@ public class TaskManagerController {
      */
     public Object selectGivenTask(String taskTitle, String taskCategory) {
         Object selectedTask = taskManager.selectGivenTask(taskTitle, taskCategory);
-
+        
         return selectedTask;
-
+        
     }
 
     /**
@@ -119,9 +119,39 @@ public class TaskManagerController {
      * @param oldTask- task to be updated
      * @param updatedTask - task with new details
      */
-    public void updateTask(Object oldTask, Object updatedTask) {
-        taskManager.updateTask(oldTask, updatedTask);
+    public Object updateTask(Object oldTask, Object updatedTask) {
+        Object taskUpdated =taskManager.updateTask(oldTask, updatedTask);
+        return taskUpdated;
+    }
+    
+    /**
+     * Update Task title for existing task
+     * @param oldTask
+     * @param updatedTaskTitle 
+     */
+    public Object updateTaskByTitle(Object oldTask, String updatedTaskTitle) {
+        Object taskUpdated =taskManager.updateTaskByTitle(oldTask, updatedTaskTitle);
+        return taskUpdated;
+    }
 
+    /**
+     * Update Task Category for existing task
+     * @param oldTask
+     * @param updatedTaskCategory 
+     */
+    public Object updateTaskByCategory(Object oldTask, String updatedTaskCategory) {
+        Object taskUpdated =taskManager.updateTaskByCategory(oldTask, updatedTaskCategory);
+        return taskUpdated;
+    }
+
+    /**
+     * Update Task Due date for existing task
+     * @param oldTask
+     * @param date 
+     */
+    public Object updateTaskByDate(Object oldTask, Date date) {
+        Object taskUpdated=taskManager.updateTaskByDate(oldTask, date);
+        return taskUpdated;
     }
 
     /**
@@ -141,5 +171,5 @@ public class TaskManagerController {
     public void markAsDone(Object o) {
         taskManager.markAsDone(o);
     }
-
+    
 }
