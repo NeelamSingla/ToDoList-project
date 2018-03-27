@@ -12,8 +12,8 @@ import java.util.Date;
  */
 public class Task implements Serializable, Comparable<Task> {
 
-    private final String taskTitle,projectCategory;
-    private final Date dueDate;
+    private String taskTitle, projectCategory;
+    private Date dueDate;
     private boolean isDone;
 
     /**
@@ -69,6 +69,33 @@ public class Task implements Serializable, Comparable<Task> {
     }
 
     /**
+     * To set Task Title
+     *
+     * @param taskTitle
+     */
+    public void setTaskTitle(String taskTitle) {
+        this.taskTitle = taskTitle;
+    }
+
+    /**
+     * To set Task Category To set Task
+     *
+     * @param taskCategory
+     */
+    public void setTaskCategory(String taskCategory) {
+        this.projectCategory = taskCategory;
+    }
+
+    /**
+     * To set Task Due Date
+     *
+     * @param dueDate
+     */
+    public void setTaskDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    /**
      * To set Task Status as Done
      */
     public void setTaskStatusDone() {
@@ -76,11 +103,12 @@ public class Task implements Serializable, Comparable<Task> {
     }
 
     /**
-   * Equal checks for equality between this and another Task
-   * It compares task title and task project name
-   * @param t object
-   * @return true if the task compared shares the same title and project name 
-   */
+     * Equal checks for equality between this and another Task It compares task
+     * title and task project name
+     *
+     * @param t object
+     * @return true if the task compared shares the same title and project name
+     */
     public boolean equals(Task t) {
         return (this.getTaskTitle().toLowerCase().equals(t.getTaskTitle().toLowerCase())
                 && this.getTaskProject().toLowerCase().equals(t.getTaskProject().toLowerCase()
@@ -108,7 +136,7 @@ public class Task implements Serializable, Comparable<Task> {
      * To compare Task by date for sorting
      *
      * @param t takes task to compare
-     * @return 
+     * @return
      */
     @Override
     public int compareTo(Task t) {
@@ -125,7 +153,7 @@ public class Task implements Serializable, Comparable<Task> {
     public static Comparator<Task> taskProjectComparator = (Task t1, Task t2) -> {
         String taskprjt1 = t1.getTaskProject().toUpperCase();
         String taskprjt2 = t2.getTaskProject().toUpperCase();
-        
+
         //ascending order
         return taskprjt1.compareTo(taskprjt2);
     };
@@ -136,7 +164,7 @@ public class Task implements Serializable, Comparable<Task> {
     public static Comparator<Task> taskdueDateComparator = (Task t1, Task t2) -> {
         Date taskdueDate1 = t1.getTaskDueDate();
         Date taskdueDate2 = t2.getTaskDueDate();
-        
+
         //ascending order
         return taskdueDate1.compareTo(taskdueDate2);
     };

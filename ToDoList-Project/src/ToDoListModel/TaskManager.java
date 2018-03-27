@@ -72,12 +72,56 @@ public class TaskManager {
      * @param oldTask- old task details to be updated
      * @param updatedTask - task with new details
      */
-    public void updateTask(Object oldTask, Object updatedTask) {
+    public Task updateTask(Object oldTask, Object updatedTask) {
         Task task = (Task) oldTask;
         Task updated = (Task) updatedTask;
         int index = tasklist.indexOf(task);
         tasklist.set(index, updated);
+        return updated;
 
+    }
+
+    /**
+     * Update Task title of existing task
+     * @param oldTask
+     * @param updatedTaskTitle - updated title
+     * @return 
+     */
+    public Task updateTaskByTitle(Object oldTask, String updatedTaskTitle) {
+        Task task = (Task) oldTask;
+        task.setTaskTitle(updatedTaskTitle);
+        int index = tasklist.indexOf(task);
+        tasklist.set(index, task);
+        return task;
+
+    }
+
+    /**
+     * Update Task Category of existing task
+     * @param oldTask
+     * @param updatedTaskCategory - Updated task category
+     * @return 
+     */
+    public Task updateTaskByCategory(Object oldTask, String updatedTaskCategory) {
+        Task task = (Task) oldTask;
+        task.setTaskCategory(updatedTaskCategory);
+        int index = tasklist.indexOf(task);
+        tasklist.set(index, task);
+        return task;
+    }
+
+    /**
+     * Update Task Due date of existing task
+     * @param oldTask
+     * @param date-Updated Task Due Date
+     * @return 
+     */
+    public Task updateTaskByDate(Object oldTask, Date date) {
+        Task task = (Task) oldTask;
+        task.setTaskDueDate(date);
+        int index = tasklist.indexOf(task);
+        tasklist.set(index, task);
+        return task;
     }
 
     /**
@@ -94,10 +138,10 @@ public class TaskManager {
      * Display all tasks present in ToDo List
      */
     public void displayAll() {
-        int toDoTaskCount= getCountOfToDoTasks();
-        int doneTaskCount= getCountOfDoneTasks();
-        System.out.println("You have "+toDoTaskCount+" tasks todo and "+
-                                       doneTaskCount+" tasks are done!");
+        int toDoTaskCount = getCountOfToDoTasks();
+        int doneTaskCount = getCountOfDoneTasks();
+        System.out.println("You have " + toDoTaskCount + " tasks todo and "
+                + doneTaskCount + " tasks are done!");
         System.out.println("Here goes the Tasks list");
         for (int i = 1; i <= tasklist.size(); i++) {
             System.out.println(i + ". " + tasklist.get(i - 1).toString());
@@ -203,19 +247,21 @@ public class TaskManager {
 
     /**
      * Method to count total Done tasks in list
+     *
      * @return total done tasks in list
      */
     int getCountOfDoneTasks() {
-        int CountOfDoneTasks =(int)tasklist.stream().filter(task -> task.getTaskStatus().equals("Done")).count();
+        int CountOfDoneTasks = (int) tasklist.stream().filter(task -> task.getTaskStatus().equals("Done")).count();
         return CountOfDoneTasks;
     }
-    
+
     /**
      * Method to count total To Do tasks in list
+     *
      * @return total To Do tasks in list
      */
     int getCountOfToDoTasks() {
-        int CountOfToDoTasks =(int)tasklist.stream().filter(task -> task.getTaskStatus().equals("To DO")).count();
+        int CountOfToDoTasks = (int) tasklist.stream().filter(task -> task.getTaskStatus().equals("To DO")).count();
         return CountOfToDoTasks;
     }
 }
