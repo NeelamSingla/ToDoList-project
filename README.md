@@ -18,10 +18,9 @@ Welcome to ToDoList.Please choose some option
 -----------------------------------------------
 1. Add Task
 2. Edit Task
-3. Display all task
-4. Disply Task sorted by date 
-5. Disply Task sorted by project
-6. Save and Quit
+3. Display Task sorted by date 
+4. Display Task sorted by project
+5. Save and Quit
 -----------------------------------------------
 
 If user choose 1, It asks for some information like
@@ -44,9 +43,20 @@ yes
 
 Enter Task No to be updated
 1
-it shows existing task if any and gives option to edit it. 
+it shows existing task if any and gives option menu to edit it. 
 home  shopping  2018-00-20  Done
+
+If User select No at previous step, It asks for some information like
 -----------------------------------------------
+
+Enter Task details
+shopping
+Enter Task Category
+home
+
+it shows existing task if any and gives option menu to edit it. 
+home  shopping  2018-00-20  Done
+
 Welcome to ToDoList.Please choose some option
 1. Edit Task
 2. Mark Task as Done
