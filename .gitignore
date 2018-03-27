@@ -4,4 +4,13 @@
 build.xml
 manifest.mf
 /nbproject/
+.DS_Store
 /.DS_Store/
+/ToDoList-Project/nbproject/
+/ToDoListProject/nbproject/private/
+/ToDoList-Project/dist/
+/ToDoList-Project/build/
+/ToDoListProject/nbproject/project.xml
+/ToDoListProject/nbproject/project.properties
+/ToDoListProject/nbproject/build-impl.xml
+/ToDoListProject/nbproject/genfiles.properties
