@@ -1,6 +1,5 @@
 package Controller;
 
-import ToDoListModel.Task;
 import ToDoListModel.TaskManager;
 import java.util.Date;
 
@@ -8,7 +7,7 @@ import java.util.Date;
  * Controller class to pass all task related operations call to Task manager
  * Model
  *
- * @author Neelam
+ * @author Neelam Singla
  */
 public class TaskManagerController {
 

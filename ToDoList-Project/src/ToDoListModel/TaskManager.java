@@ -7,8 +7,8 @@ import FileUtility.ReadFromFile;
 import FileUtility.SaveToFile;
 
 /**
- * Task Manager class like Model to perform all task related stuff
- * Controller directs all call to Task Manager
+ * Task Manager class like Model to perform all task related stuff Controller
+ * directs all call to Task Manager
  */
 public class TaskManager {
 
@@ -24,10 +24,9 @@ public class TaskManager {
         file = new File("TaskList.ser");
     }
 
-    
     /**
-     * Uses FileUtility ReadFromFile
-     * Initialize tasks from file if any and display all tasks
+     * Uses FileUtility ReadFromFile Initialize tasks from file if any and
+     * display all tasks
      */
     public void initializeListFromFile() {
         tasklist = ReadFromFile.initializeListFromFile(file);
@@ -44,7 +43,7 @@ public class TaskManager {
      * @param taskCategory
      * @param taskStatus
      * @param dueDate
-     * @return new Task 
+     * @return new Task
      */
     public Task createTask(String taskTitle, String taskCategory, boolean taskStatus, Date dueDate) {
         Task task = new Task(taskTitle, taskCategory, taskStatus, dueDate); //(String name, Date dueDate, boolean status, Project proj)
@@ -95,7 +94,11 @@ public class TaskManager {
      * Display all tasks present in ToDo List
      */
     public void displayAll() {
-        System.out.println("   " + "Title"+"           "+"Category"+"           "+"Due Date"+"           "+"Status");
+        int toDoTaskCount= getCountOfToDoTasks();
+        int doneTaskCount= getCountOfDoneTasks();
+        System.out.println("You have "+toDoTaskCount+" tasks todo and "+
+                                       doneTaskCount+" tasks are done!");
+        System.out.println("Here goes the Tasks list");
         for (int i = 1; i <= tasklist.size(); i++) {
             System.out.println(i + ". " + tasklist.get(i - 1).toString());
         }
@@ -121,7 +124,7 @@ public class TaskManager {
      * Check If Task with same Title and same category is already present in the
      * list
      *
-     * @param newTask task which we want to check 
+     * @param newTask task which we want to check
      * @return true if task exists in given list
      */
     public boolean checkIfTaskExists(Task newTask) {
@@ -198,4 +201,21 @@ public class TaskManager {
         SaveToFile.saveToFile(file, tasklist);
     }
 
+    /**
+     * Method to count total Done tasks in list
+     * @return total done tasks in list
+     */
+    int getCountOfDoneTasks() {
+        int CountOfDoneTasks =(int)tasklist.stream().filter(task -> task.getTaskStatus().equals("Done")).count();
+        return CountOfDoneTasks;
+    }
+    
+    /**
+     * Method to count total To Do tasks in list
+     * @return total To Do tasks in list
+     */
+    int getCountOfToDoTasks() {
+        int CountOfToDoTasks =(int)tasklist.stream().filter(task -> task.getTaskStatus().equals("To DO")).count();
+        return CountOfToDoTasks;
+    }
 }
