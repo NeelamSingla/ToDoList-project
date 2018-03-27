@@ -43,10 +43,10 @@ yes
 
 Enter Task No to be updated
 1
-it shows existing task if any and gives option to edit it. 
+it shows existing task if any and gives option menu to edit it. 
 home  shopping  2018-00-20  Done
 
-If User select No at line Number 41, It asks for some information like
+If User select No at previous step, It asks for some information like
 -----------------------------------------------
 
 Enter Task details
@@ -54,7 +54,7 @@ shopping
 Enter Task Category
 home
 
-it shows existing task if any and gives option to edit it. 
+it shows existing task if any and gives option menu to edit it. 
 home  shopping  2018-00-20  Done
 
 Welcome to ToDoList.Please choose some option
