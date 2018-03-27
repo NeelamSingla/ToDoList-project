@@ -18,10 +18,9 @@ Welcome to ToDoList.Please choose some option
 -----------------------------------------------
 1. Add Task
 2. Edit Task
-3. Display all task
-4. Disply Task sorted by date 
-5. Disply Task sorted by project
-6. Save and Quit
+3. Display Task sorted by date 
+4. Display Task sorted by project
+5. Save and Quit
 -----------------------------------------------
 
 If user choose 1, It asks for some information like
