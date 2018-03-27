@@ -15,7 +15,6 @@ import org.junit.Ignore;
 /**
  * Test file to test Test manager class
  *
- * @author tmp-sda-1160
  */
 public class TaskManagerTest {
 

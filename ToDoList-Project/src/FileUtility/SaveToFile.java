@@ -9,14 +9,15 @@ import java.io.ObjectOutputStream;
 import java.util.List;
 
 /**
- *
- * @author tmp-sda-1160
+ *A class to save task collection in file
+ * in serialized form
  */
 public final class SaveToFile {
     
        /**
         * Save all task in file
-        * @param file file name 
+        * @param file file name to write tasks in that file
+        * in serialized form
         * @param tasklist collection of task to save
         */
     public static void saveToFile(File file,List<Task> tasklist)
@@ -36,7 +37,7 @@ public final class SaveToFile {
                    f.close();
             } 
            catch (FileNotFoundException e) {
-                     System.out.println("File not found");
+              System.out.println("File not found");
                      } 
            catch (IOException e) {
                      System.out.println("Error initializing stream");

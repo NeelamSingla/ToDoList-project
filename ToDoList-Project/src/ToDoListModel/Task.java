@@ -8,14 +8,13 @@ import java.util.Date;
 /**
  * Task class with Title, DueDate, Is Done, Project Category
  *
- * @author Neelam
+ * @author Neelam Singla
  */
 public class Task implements Serializable, Comparable<Task> {
 
-    private final String taskTitle;
+    private final String taskTitle,projectCategory;
     private final Date dueDate;
     private boolean isDone;
-    private final String projectCategory;
 
     /**
      * Constructor to create task with all options
@@ -36,7 +35,7 @@ public class Task implements Serializable, Comparable<Task> {
     /**
      * To get Task Title
      *
-     * @return
+     * @return Task Title
      */
     public String getTaskTitle() {
         return taskTitle;
@@ -45,7 +44,7 @@ public class Task implements Serializable, Comparable<Task> {
     /**
      * To get Task Due Date
      *
-     * @return
+     * @return task due Date
      */
     public Date getTaskDueDate() {
         return dueDate;
@@ -54,7 +53,7 @@ public class Task implements Serializable, Comparable<Task> {
     /**
      * To get task status
      *
-     * @return
+     * @return Task status as Done or To Do
      */
     public String getTaskStatus() {
         return isDone == true ? "Done" : "To DO";
@@ -63,7 +62,7 @@ public class Task implements Serializable, Comparable<Task> {
     /**
      * To get Task project or Category
      *
-     * @return
+     * @return Task Project or Category
      */
     public String getTaskProject() {
         return projectCategory;
@@ -77,11 +76,11 @@ public class Task implements Serializable, Comparable<Task> {
     }
 
     /**
-     * Equal return true if task has same title and same task project
-     *
-     * @param t task to compare
-     * @return true if given task is same as this task
-     */
+   * Equal checks for equality between this and another Task
+   * It compares task title and task project name
+   * @param t object
+   * @return true if the task compared shares the same title and project name 
+   */
     public boolean equals(Task t) {
         return (this.getTaskTitle().toLowerCase().equals(t.getTaskTitle().toLowerCase())
                 && this.getTaskProject().toLowerCase().equals(t.getTaskProject().toLowerCase()
@@ -92,20 +91,24 @@ public class Task implements Serializable, Comparable<Task> {
      * Override toString to return all task fields Format date as day,Date Month
      * Year
      *
-     * @return
+     * @return task with different fields as String
      */
     @Override
     public String toString() {
+        String s1 = this.getTaskTitle().substring(0, 1).toUpperCase();
+        String taskTitleCapitalized = s1 + this.getTaskTitle().substring(1);
+        String prjt1 = this.getTaskProject().substring(0, 1).toUpperCase();
+        String taskProjectCapitalized = prjt1 + this.getTaskProject().substring(1);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE,d MMM yyyy");
-        return this.getTaskProject() + "  " + this.getTaskTitle()
-                + "  " + simpleDateFormat.format(this.dueDate) + "  " + this.getTaskStatus();
+        return taskTitleCapitalized + "           " + taskProjectCapitalized
+                + "          " + simpleDateFormat.format(this.dueDate) + "         " + this.getTaskStatus();
     }
 
     /**
      * To compare Task by date for sorting
      *
-     * @param t
-     * @return
+     * @param t takes task to compare
+     * @return 
      */
     @Override
     public int compareTo(Task t) {
@@ -117,7 +120,7 @@ public class Task implements Serializable, Comparable<Task> {
     }
 
     /**
-     * Comparator to compare by project
+     * Comparator to compare task by project
      */
     public static Comparator<Task> taskProjectComparator = (Task t1, Task t2) -> {
         String taskprjt1 = t1.getTaskProject().toUpperCase();
@@ -128,7 +131,7 @@ public class Task implements Serializable, Comparable<Task> {
     };
 
     /**
-     * Comparator to compare by Date
+     * Comparator to compare task by Date
      */
     public static Comparator<Task> taskdueDateComparator = (Task t1, Task t2) -> {
         Date taskdueDate1 = t1.getTaskDueDate();

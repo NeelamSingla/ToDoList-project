@@ -12,18 +12,20 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- *
- * @author tmp-sda-1160
+ * It reads and initialize task collection from
+ * given file
+ * 
  */
 public final class ReadFromFile {
     
     
     /**
      * To Initialize task from file
-     * @param file - file name
-     * @return Collection of tasks from file if any
+     * @param file - file name from where it can read tasks
+     * @return Collection of tasks from file if any to display
+     * sorted by date and project
      */
-    public static List<Task> initializeListFromFile(File file)
+    public static List<Task> initializeListFromFile(File file) 
         {
          List<Task> tasklist= new ArrayList<>();
             try
@@ -40,10 +42,9 @@ public final class ReadFromFile {
                return tasklist;
 
             } 
-            catch (FileNotFoundException e) 
-            {
-                    System.out.println("File not found");
-            } 
+            catch (FileNotFoundException e) {
+              System.out.println("File not found");
+                     } 
             catch (EOFException e) {
             } 
             catch (IOException e) 

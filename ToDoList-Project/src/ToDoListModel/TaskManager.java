@@ -8,8 +8,7 @@ import FileUtility.SaveToFile;
 
 /**
  * Task Manager class like Model to perform all task related stuff
- *
- * @author Neelam
+ * Controller directs all call to Task Manager
  */
 public class TaskManager {
 
@@ -45,7 +44,7 @@ public class TaskManager {
      * @param taskCategory
      * @param taskStatus
      * @param dueDate
-     * @return
+     * @return new Task 
      */
     public Task createTask(String taskTitle, String taskCategory, boolean taskStatus, Date dueDate) {
         Task task = new Task(taskTitle, taskCategory, taskStatus, dueDate); //(String name, Date dueDate, boolean status, Project proj)
@@ -56,7 +55,7 @@ public class TaskManager {
      * Add Task if it does not exist earlier
      *
      * @param o Task passed as object
-     * @return
+     * @return true if task is added otherwise returns false
      */
     public boolean addTask(Object o) {
         Task newTask = (Task) o;
@@ -71,7 +70,7 @@ public class TaskManager {
     /**
      * Update Task
      *
-     * @param oldTask- task to be updated
+     * @param oldTask- old task details to be updated
      * @param updatedTask - task with new details
      */
     public void updateTask(Object oldTask, Object updatedTask) {
@@ -96,6 +95,7 @@ public class TaskManager {
      * Display all tasks present in ToDo List
      */
     public void displayAll() {
+        System.out.println("   " + "Title"+"           "+"Category"+"           "+"Due Date"+"           "+"Status");
         for (int i = 1; i <= tasklist.size(); i++) {
             System.out.println(i + ". " + tasklist.get(i - 1).toString());
         }
@@ -121,8 +121,8 @@ public class TaskManager {
      * Check If Task with same Title and same category is already present in the
      * list
      *
-     * @param newTask
-     * @return
+     * @param newTask task which we want to check 
+     * @return true if task exists in given list
      */
     public boolean checkIfTaskExists(Task newTask) {
         boolean isTaskExists = false;
@@ -139,7 +139,7 @@ public class TaskManager {
      *
      * @param taskTitle
      * @param taskCategory
-     * @return Task if it is present
+     * @return Task if it is present else null
      */
     public Task selectGivenTask(String taskTitle, String taskCategory) {
         try {
@@ -162,7 +162,7 @@ public class TaskManager {
      * provided in parameters
      *
      * @param taskIndex
-     * @return
+     * @return Task at given index if it exists
      */
     public Task selectGivenTask(int taskIndex) {
         try {

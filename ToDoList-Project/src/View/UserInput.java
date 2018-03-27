@@ -16,7 +16,7 @@ public class UserInput {
     TaskManagerController taskManagerController;
 
     /**
-     * Constructor to initialize Task Manager Model
+     * Constructor to initialize Task Manager Controller
      *
      * @param taskManagerController
      */
@@ -28,7 +28,7 @@ public class UserInput {
     /**
      * Method to take user input for all task details
      *
-     * @return
+     * @return Task as Object
      */
     public Object enterTaskDetails() {
         try {
@@ -88,7 +88,7 @@ public class UserInput {
 
         while (userChoice != 4) {
             System.out.println("-----------------------------------------------");
-            System.out.println("Welcome to ToDoList.Please choose some option");
+            System.out.println("Welcome to To Do List.Please choose some option");
             System.out.println("1. Edit Task");
             System.out.println("2. Mark Task as Done");
             System.out.println("3. Remove Task");
