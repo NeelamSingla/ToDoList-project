@@ -18,12 +18,12 @@ Welcome to ToDoList.Please choose some option
 -----------------------------------------------
 1. Add Task
 2. Edit Task
-3. Display Task sorted by date 
+3. Display Task sorted by date
 4. Display Task sorted by project
 5. Save and Quit
 -----------------------------------------------
 
-If user choose 1, It asks for some information like
+If user choose 1, It allows to enter task details
 ----------------------------------------------
 Enter Task details
 shopping
@@ -31,11 +31,12 @@ Enter Task Category
 home
 Enter Task status, Done-True/False
 True
-Enter Task due Date in format yyyy-MM-dd 
+Enter Task due Date in format yyyy-MM-dd
 2018-04-20
 Task is added in TODO List
 
-If user choose 2, It asks for some information like
+If user choose 2, It allows to update. It gives two option to find existing task. By Task No
+Or By Task title and Category
 ----------------------------------------------
 
 Do you want to update by Index? Enter Yes / No
@@ -43,7 +44,8 @@ yes
 
 Enter Task No to be updated
 1
-it shows existing task if any and gives option menu to edit it. 
+it shows existing task if any and gives option menu to edit it.
+
 home  shopping  2018-00-20  Done
 
 If User select No at previous step, It asks for some information like
@@ -54,19 +56,52 @@ shopping
 Enter Task Category
 home
 
-it shows existing task if any and gives option menu to edit it. 
+it shows existing task if any and gives option menu to edit it.
 home  shopping  2018-00-20  Done
 
-Welcome to ToDoList.Please choose some option
+Shopping           Home          Fri,30 Mar 2018         To DO
+-----------------------------------------------
+Welcome to To Do List.Please choose some option
 1. Edit Task
-2. Mark Task as Done
-3. Remove Task
-4. Go back to ToDo List main menu
+2. Edit Task's Title
+3. Edit Task's Category
+4. Edit Task's Due Date
+5. Mark Task as Done
+6. Remove Task
+7. Go back to ToDo List main menu
 -----------------------------------------------
 
 Now user can select any option to update it.
 
-If user choose 6, It saves task in file and shows
+If user choose 2, It allows to update only Title.
+
+2
+Enter Task Title
+newTitle
+Updated Task:NewTitle           Home          Fri,30 Mar 2018         To DO
+-----------------------------------------------
+Welcome to To Do List.Please choose some option
+1. Edit Task
+2. Edit Task's Title
+3. Edit Task's Category
+4. Edit Task's Due Date
+5. Mark Task as Done
+6. Remove Task
+7. Go back to ToDo List main menu
+-----------------------------------------------
+f user choose 7,It takes user to previous menu.
+7
+--------------------------------------------------------
+Welcome to To Do List.Please choose some option
+-----------------------------------------------
+1. Add Task
+2. Edit Task
+3. Disply Task sorted by date
+4. Disply Task sorted by project
+5. Save and Quit
+--------------------------------------------------------
+
+If user choose 5, It saves task in file and shows
 below message
 Thanks for using TodoList
 
