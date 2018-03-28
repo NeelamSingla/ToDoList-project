@@ -1,6 +1,5 @@
 package FileUtility;
 
-import ToDoListModel.Task;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -9,7 +8,7 @@ import java.io.ObjectOutputStream;
 import java.util.List;
 
 /**
- *A class to save task collection in file
+ *A class to save Any Object collection in file
  * in serialized form
  */
 public final class SaveToFile {
@@ -20,13 +19,13 @@ public final class SaveToFile {
         * in serialized form
         * @param tasklist collection of task to save
         */
-    public static void saveToFile(File file,List<Task> tasklist)
+    public static <T>void saveToFile(File file,List<T> tasklist)
         {
            try{
                  FileOutputStream f = new FileOutputStream(file);
                  ObjectOutputStream o = new ObjectOutputStream(f);
 
-                    for(Task t:tasklist)
+                    for(T t:tasklist)
                    {
                       o.writeObject(t);
                    }

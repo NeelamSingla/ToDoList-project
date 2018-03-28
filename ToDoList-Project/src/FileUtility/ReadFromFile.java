@@ -1,6 +1,5 @@
 package FileUtility;
 
-import ToDoListModel.Task;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,53 +7,47 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
- * It reads and initialize task collection from
- * given file
- * 
+ * It reads and initialize Object collection from given file
+ *
  */
 public final class ReadFromFile {
-    
-    
+
     /**
      * To Initialize task from file
+     *
+     * @param <T> It is generic data type
      * @param file - file name from where it can read tasks
-     * @return Collection of tasks from file if any to display
-     * sorted by date and project
+     * @return Collection of T type objects from file if any to display 
      */
-    public static List<Task> initializeListFromFile(File file) 
-        {
-         List<Task> tasklist= new ArrayList<>();
-            try
-            {
-              ObjectInputStream oi = new ObjectInputStream(new FileInputStream(file));
-              Task readTask;
-              while((readTask = (Task) oi.readObject()) != null)
-              {
+    public static <T> List<T> initializeListFromFile(File file) {
+
+        List<T> tasklist = new ArrayList<>();
+        try {
+            if (file.exists()) {
+                ObjectInputStream oi = new ObjectInputStream(new FileInputStream(file));
+                T readTask;
+                while ((readTask = (T) oi.readObject()) != null) {
                     // Read objects
                     tasklist.add(readTask);
                 }
-               oi.close();
-               Collections.sort(tasklist,Task.taskdueDateComparator);
-               return tasklist;
-
-            } 
-            catch (FileNotFoundException e) {
-              System.out.println("File not found");
-                     } 
-            catch (EOFException e) {
-            } 
-            catch (IOException e) 
-            {
-                    System.out.println("Error initializing stream");
-            } 
-            catch (ClassNotFoundException e) 
-            {
+                oi.close();
+                
+                return tasklist;
+            } else {
+                file.createNewFile();
             }
-         return tasklist;
 
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found");
+        } catch (EOFException e) {
+        } catch (IOException e) {
+            System.out.println("Error initializing stream");
+        } catch (ClassNotFoundException e) {
         }
+        return tasklist;
+
+    }
 }
