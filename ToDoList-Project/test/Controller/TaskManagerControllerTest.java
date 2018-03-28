@@ -2,10 +2,14 @@ package Controller;
 
 import ToDoListModel.Task;
 import ToDoListModel.TaskManager;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -21,6 +25,7 @@ public class TaskManagerControllerTest {
 
     TaskManager taskManager;
     TaskManagerController taskManagerController;
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     public TaskManagerControllerTest() {
 
@@ -44,6 +49,20 @@ public class TaskManagerControllerTest {
     @After
     public void tearDown() {
     }
+    
+    /**
+     * set up stream to test print statement
+     */
+    @Before
+    public void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+    }
+
+    @After
+    public void restoreStreams() {
+        System.setOut(System.out);
+    }
+
 
     /**
      * Test of enterTaskDetails method, of class TaskManagerController.
@@ -112,8 +131,11 @@ public class TaskManagerControllerTest {
     @Test
     public void testDisplayAll() {
         taskManagerController.displayAll();
-        // TODO review the generated test code and remove the default call to fail.
+        String expected = "Here goes the Tasks list";
+        String actual = outContent.toString();
 
+        boolean isExist = actual.contains(expected);
+        assertTrue(isExist);
     }
 
     /**
@@ -121,9 +143,17 @@ public class TaskManagerControllerTest {
      */
     @Test
     public void testEditTaskDetails() {
-        // System.out.println("editTaskDetails");
-        // TaskManagerController instance = new TaskManagerController();
-        // instance.editTaskDetails();
+        try {
+            Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
+            Object CreatedTask = taskManager.createTask("shopping", "Home", false, dueDate);
+            String actual, expected = "Personal";
+            taskManagerController.addTask(CreatedTask);
+            String UpdatedCategory="Personal";
+            Object updated=taskManagerController.updateTaskByCategory(CreatedTask, UpdatedCategory);
+            actual= ((Task)updated).getTaskProject();
+            assertEquals(expected, actual);
+        } catch (InputMismatchException | ParseException e) {
+        }
 
     }
 
@@ -132,9 +162,22 @@ public class TaskManagerControllerTest {
      */
     @Test
     public void testSaveToFile() {
-        System.out.println("saveToFile");
         TaskManagerController instance = new TaskManagerController();
+       Date dueDate = null;
+        try {
+            dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
+        } catch (ParseException ex) {
+            Logger.getLogger(TaskManagerControllerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            Object CreatedTask = instance.createTask("shopping", "Home", false, dueDate);
+            instance.addTask(CreatedTask);
         instance.saveToFile();
+        testInitilizeSavedTaskList();
+        String expected = "Shopping           Home          Sat,1 Dec 2018         To DO";
+        String actual = outContent.toString();
+
+        boolean isExist = actual.contains(expected);
+        assertTrue(isExist);
 
     }
 
@@ -164,7 +207,6 @@ public class TaskManagerControllerTest {
      */
     @Test
     public void testInitilizeSavedTaskList() {
-        System.out.println("InitilizeSavedTaskList");
         TaskManagerController instance = new TaskManagerController();
         instance.InitilizeSavedTaskList();
     }

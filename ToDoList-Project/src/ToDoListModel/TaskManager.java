@@ -1,5 +1,6 @@
 package ToDoListModel;
 
+import Controller.ResourceMessages;
 import java.util.*;
 import java.util.Date;
 import java.io.File;
@@ -199,7 +200,7 @@ public class TaskManager {
 
             return selectedTask;
         } catch (NoSuchElementException ex) {
-            System.out.println("No Such Task Exist in To Do List");
+            System.out.println(ResourceMessages.TASKNOTEXIST_MSG);
         }
         return null;
     }
@@ -217,11 +218,11 @@ public class TaskManager {
                 Task selectedTask = tasklist.get(taskIndex - 1);
                 return selectedTask;
             } else {
-                System.out.println("No Such Task Exist in To Do List");
+                System.out.println(ResourceMessages.TASKNOTEXIST_MSG);
             }
 
         } catch (NoSuchElementException ex) {
-            System.out.println("No Such Task Exist in To Do List");
+            System.out.println(ResourceMessages.TASKNOTEXIST_MSG);
         }
         return null;
     }
