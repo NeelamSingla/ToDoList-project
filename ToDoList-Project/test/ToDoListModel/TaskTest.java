@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -102,13 +104,14 @@ public class TaskTest {
     /**
      * Test of setTaskStatusDone method, of class Task.
      */
-    @Ignore
+    @Test
     public void testSetTaskStatusDone() {
         try {
             Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
             expectedTask = new Task("shopping", "Home", false, dueDate);
-            String actual = "Home";
-            String expected = expectedTask.getTaskProject();
+            expectedTask.setTaskStatusDone();
+            String actual = "Done";
+            String expected = expectedTask.getTaskStatus();
             assertEquals(expected, actual);
         } catch (InputMismatchException | ParseException e) {
         }
@@ -116,46 +119,59 @@ public class TaskTest {
 
     /**
      * Test of equals method, of class Task.
+     * Checks if Title and category of two tasks are equal
      */
-    @Ignore
+    @Test
     public void testEquals() {
-        System.out.println("equals");
-        Task t = null;
-        Task instance = null;
-        boolean expResult = false;
-        boolean result = instance.equals(t);
+        Date dueDate = null;
+        try {
+            dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
+        } catch (ParseException ex) {
+            Logger.getLogger(TaskTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            Task task1 = new Task("shopping", "Home", false, dueDate);
+            Task task2 = new Task("shopping", "Home", true, dueDate);
+        boolean expResult = true;
+        boolean result = task1.equals(task2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
      * Test of toString method, of class Task.
+     * it returns all fields of task as String
      */
-    @Ignore
+    @Test
     public void testToString() {
-        System.out.println("toString");
-        Task instance = null;
-        String expResult = "";
-        String result = instance.toString();
+        Date dueDate = null;
+        try {
+            dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("02/04/2018");
+        } catch (ParseException ex) {
+            Logger.getLogger(TaskTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            Task task1 = new Task("shopping", "Home", false, dueDate);
+        String expResult = "Shopping           Home          Mon,2 Apr 2018         To DO";
+        String result = task1.toString();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
-
+    
     /**
      * Test of compareTo method, of class Task.
+     * It compares task by Due date
      */
-    @Ignore
+    @Test
     public void testCompareTo() {
-        System.out.println("compareTo");
-        Task t = null;
-        Task instance = null;
-        int expResult = 0;
-        int result = instance.compareTo(t);
+         Date dueDate = null;
+        try {
+            dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
+        } catch (ParseException ex) {
+            Logger.getLogger(TaskTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            Task task1 = new Task("shopping", "Home", false, dueDate);
+            Task task2 = new Task("shopping", "Home", true, dueDate);
+        int expResult = task1.getTaskDueDate().compareTo(task2.getTaskDueDate());
+        int result = task1.compareTo(task2);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
 }

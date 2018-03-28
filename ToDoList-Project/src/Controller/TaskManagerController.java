@@ -52,9 +52,9 @@ public class TaskManagerController {
     public void addTask(Object o) {
         boolean isTaskCreated = taskManager.addTask(o);
         if (!isTaskCreated) {
-            System.out.println("Task is already present in TODO List");
+            System.out.println(ResourceMessages.TASKEXIST_MSG);
         } else {
-            System.out.println("Task is added in TODO List");
+            System.out.println(ResourceMessages.TASKADDED_MSG);
         }
     }
 

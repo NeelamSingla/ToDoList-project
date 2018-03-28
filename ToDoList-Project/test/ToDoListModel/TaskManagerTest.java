@@ -1,9 +1,13 @@
 package ToDoListModel;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -20,6 +24,7 @@ public class TaskManagerTest {
 
     TaskManager taskManager;
     Task expectedTask;
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
     public TaskManagerTest() {
     }
@@ -39,6 +44,19 @@ public class TaskManagerTest {
 
     @After
     public void tearDown() {
+    }
+    
+    /**
+     * set up stream to test print statement
+     */
+    @Before
+    public void setUpStreams() {
+        System.setOut(new PrintStream(outContent));
+    }
+
+    @After
+    public void restoreStreams() {
+        System.setOut(System.out);
     }
 
     /**
@@ -119,25 +137,36 @@ public class TaskManagerTest {
     /**
      * Test of displayAll method, of class TaskManager.
      */
-    @Ignore
+    @Test
     public void testDisplayAll() {
-        System.out.println("displayAll");
-        TaskManager instance = new TaskManager();
-        instance.displayAll();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        taskManager.displayAll();
+        String expected = "Here goes the Tasks list";
+        String actual = outContent.toString();
+
+        boolean isExist = actual.contains(expected);
+        assertTrue(isExist);
     }
 
     /**
      * Test of saveToFile method, of class TaskManager.
      */
-    @Ignore
+    @Test
     public void testSaveToFile() {
-        System.out.println("saveToFile");
-        TaskManager instance = new TaskManager();
-        instance.saveToFile();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       Date dueDate = null;
+        try {
+            dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
+        } catch (ParseException ex) {
+            Logger.getLogger(TaskManagerTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            Object CreatedTask = taskManager.createTask("shopping", "Home", false, dueDate);
+            taskManager.addTask(CreatedTask);
+        taskManager.saveToFile();
+        testInitilizeSavedTaskList();
+        String expected = "Shopping           Home          Sat,1 Dec 2018         To DO";
+        String actual = outContent.toString();
+
+        boolean isExist = actual.contains(expected);
+        assertTrue(isExist);
     }
 
     /**
@@ -164,16 +193,9 @@ public class TaskManagerTest {
         fail("The test case is a prototype.");
     }
 
-    /**
-     * Test of initializeListFromFile method, of class TaskManager.
-     */
-    @Ignore
-    public void testInitializeListFromFile() {
-        System.out.println("initializeListFromFile");
-        TaskManager instance = new TaskManager();
-        instance.initializeListFromFile();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    @Test
+    public void testInitilizeSavedTaskList() {
+        taskManager.initializeListFromFile();
     }
 
     /**
