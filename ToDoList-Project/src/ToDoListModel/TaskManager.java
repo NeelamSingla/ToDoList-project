@@ -137,6 +137,8 @@ public class TaskManager {
 
     /**
      * Display all tasks present in ToDo List
+     * Sort all tasks by Project and date 
+     * then display all
      */
     public void displayAll() {
         int toDoTaskCount = getCountOfToDoTasks();
@@ -144,6 +146,7 @@ public class TaskManager {
         System.out.println("You have " + toDoTaskCount + " tasks todo and "
                 + doneTaskCount + " tasks are done!");
         System.out.println("Here goes the Tasks list");
+        Collections.sort(tasklist, Task.taskdueDateComparator);
         for (int i = 1; i <= tasklist.size(); i++) {
             System.out.println(i + ". " + tasklist.get(i - 1).toString());
         }
