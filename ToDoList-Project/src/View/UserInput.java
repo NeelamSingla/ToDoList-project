@@ -72,7 +72,7 @@ public class UserInput {
      *
      * @return TaskCategory
      */
-    String enterTaskCategory() {
+    public String enterTaskCategory() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter Task category");
         String taskCategory = sc.nextLine();

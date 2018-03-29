@@ -20,8 +20,8 @@ Welcome to ToDoList.Please choose some option
 2. Edit Task
 3. Display Task sorted by date
 4. Display Task sorted by project
-5. Save and Quit
------------------------------------------------
+5. Display Task filtered by project
+6. Save and Quit -----------------------------------------------
 
 If user choose 1, It allows to enter task details
 ----------------------------------------------
@@ -96,12 +96,22 @@ Welcome to To Do List.Please choose some option
 -----------------------------------------------
 1. Add Task
 2. Edit Task
-3. Disply Task sorted by date
-4. Disply Task sorted by project
-5. Save and Quit
+3. Display Task sorted by date
+4. Display Task sorted by project
+5. Display Task filtered by project
+6. Save and Quit
 --------------------------------------------------------
+If user choose 5, It asks the project category to filter tasks and show only tasks of that category
+5
 
-If user choose 5, It saves task in file and shows
+Enter project category to filter tasks
+Enter Task category
+home
+
+NewTitle           Home          Fri,30 Mar 2018         To DO
+Shopping           Home          Sat,7 Apr 2018         To DO
+
+If user choose 6, It saves task in file and shows
 below message
 Thanks for using TodoList
 

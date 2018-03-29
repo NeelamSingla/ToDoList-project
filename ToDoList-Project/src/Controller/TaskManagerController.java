@@ -79,6 +79,12 @@ public class TaskManagerController {
         taskManager.sortByProject();
     }
 
+     /**
+     * Filter Task by project
+     */
+    public void filterByProject(String projectCategoryToFilter) {
+        taskManager.filterByProject(projectCategoryToFilter);
+    }
     /**
      * Save Task to file
      */
