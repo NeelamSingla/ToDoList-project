@@ -28,15 +28,16 @@ public class TodoListStartup {
                 taskManagerController.InitilizeSavedTaskList();
                 UserInput userInput = new UserInput(taskManagerController);
                 int userChoice = 0;
-                while (userChoice != 5) {
+                while (userChoice != 6) {
                     System.out.println("--------------------------------------------------------");
                     System.out.println("Welcome to To Do List.Please choose some option");
                     System.out.println("-----------------------------------------------");
                     System.out.println("1. Add Task");
                     System.out.println("2. Edit Task");
-                    System.out.println("3. Disply Task sorted by date ");
-                    System.out.println("4. Disply Task sorted by project");
-                    System.out.println("5. Save and Quit");
+                    System.out.println("3. Display Task sorted by date ");
+                    System.out.println("4. Display Task sorted by project");
+                    System.out.println("5. Display Task filtered by project");
+                    System.out.println("6. Save and Quit");
                     System.out.println("--------------------------------------------------------");
                     userChoice = sc.nextInt();
                     switch (userChoice) {
@@ -56,6 +57,11 @@ public class TodoListStartup {
                             taskManagerController.sortByProject();
                             break;
                         case 5:
+                            System.out.println("Enter project category to filter tasks");
+                            String projectCategoryToFilter = userInput.enterTaskCategory();
+                            taskManagerController.filterByProject(projectCategoryToFilter);
+                            break;
+                        case 6:
                             taskManagerController.saveToFile();
                             System.out.println(ResourceMessages.THANKYOU_MSG);
                             break;

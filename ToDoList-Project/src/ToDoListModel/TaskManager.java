@@ -84,9 +84,10 @@ public class TaskManager {
 
     /**
      * Update Task title of existing task
+     *
      * @param oldTask
      * @param updatedTaskTitle - updated title
-     * @return 
+     * @return
      */
     public Task updateTaskByTitle(Object oldTask, String updatedTaskTitle) {
         Task task = (Task) oldTask;
@@ -99,9 +100,10 @@ public class TaskManager {
 
     /**
      * Update Task Category of existing task
+     *
      * @param oldTask
      * @param updatedTaskCategory - Updated task category
-     * @return 
+     * @return
      */
     public Task updateTaskByCategory(Object oldTask, String updatedTaskCategory) {
         Task task = (Task) oldTask;
@@ -113,9 +115,10 @@ public class TaskManager {
 
     /**
      * Update Task Due date of existing task
+     *
      * @param oldTask
      * @param date-Updated Task Due Date
-     * @return 
+     * @return
      */
     public Task updateTaskByDate(Object oldTask, Date date) {
         Task task = (Task) oldTask;
@@ -136,8 +139,7 @@ public class TaskManager {
     }
 
     /**
-     * Display all tasks present in ToDo List
-     * Sort all tasks by Project and date 
+     * Display all tasks present in ToDo List Sort all tasks by Project and date
      * then display all
      */
     public void displayAll() {
@@ -158,6 +160,22 @@ public class TaskManager {
     public void sortByProject() {
         Collections.sort(tasklist, Task.taskProjectComparator);
         displayAll();
+    }
+
+    /**
+     * filter all tasks by Project
+     *
+     * @param projectCategoryToFilter
+     */
+    public void filterByProject(String projectCategoryToFilter) {
+        try {
+            tasklist.stream()
+                    .filter(t -> t.getTaskProject().toLowerCase().equals(projectCategoryToFilter.toLowerCase())
+                    ).forEach(task -> System.out.println(task.toString()));
+
+        } catch (NoSuchElementException ex) {
+            System.out.println(ResourceMessages.TASKNOTEXIST_MSG);
+        }
     }
 
     /**
