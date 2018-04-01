@@ -20,6 +20,7 @@ Here goes the Tasks list
 1. NewTitle           Home          Fri,30 Mar 2018         To DO
 2. Exercise           Fitness          Sat,31 Mar 2018         To DO
 3. Shopping           Home          Sat,7 Apr 2018         To DO
+
 Welcome to ToDoList.Please choose some option
 -----------------------------------------------
 1. Add Task
@@ -27,7 +28,8 @@ Welcome to ToDoList.Please choose some option
 3. Display Task sorted by date
 4. Display Task sorted by project
 5. Display Task filtered by project
-6. Save and Quit -----------------------------------------------
+6. Save and Quit 
+-----------------------------------------------
 
 If user choose 1, It allows to enter task details
 ----------------------------------------------
@@ -104,7 +106,7 @@ If User select 7,It takes user to previous menu
 -----------------------------------------------
 7
 
---------------------------------------------------------
+-----------------------------------------------
 Welcome to To Do List.Please choose some option
 -----------------------------------------------
 1. Add Task
@@ -116,7 +118,7 @@ Welcome to To Do List.Please choose some option
 --------------------------------------------------------
 
 If user choose 5, It asks the project category to filter tasks and show only tasks of that category
-------------------------------------------------------------------------
+---------------------------------------------------------
 5
 
 Enter project category to filter tasks
