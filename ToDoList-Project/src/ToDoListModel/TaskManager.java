@@ -72,6 +72,7 @@ public class TaskManager {
      *
      * @param oldTask- old task details to be updated
      * @param updatedTask - task with new details
+     * @return updated task 
      */
     public Task updateTask(Object oldTask, Object updatedTask) {
         Task task = (Task) oldTask;
@@ -145,6 +146,7 @@ public class TaskManager {
     public void displayAll() {
         int toDoTaskCount = getCountOfToDoTasks();
         int doneTaskCount = getCountOfDoneTasks();
+        System.out.println("Total tasks in your bucket:" + getCountOfTotalTasks() +"!");
         System.out.println("You have " + toDoTaskCount + " tasks todo and "
                 + doneTaskCount + " tasks are done!");
         System.out.println("Here goes the Tasks list");
@@ -285,5 +287,15 @@ public class TaskManager {
     int getCountOfToDoTasks() {
         int CountOfToDoTasks = (int) tasklist.stream().filter(task -> task.getTaskStatus().equals("To DO")).count();
         return CountOfToDoTasks;
+    }
+    
+    /**
+     * Method to count total tasks in list
+     *
+     * @return total tasks in list
+     */
+    int getCountOfTotalTasks() {
+        int CountOfTotalTasks = tasklist.size();
+        return CountOfTotalTasks;
     }
 }

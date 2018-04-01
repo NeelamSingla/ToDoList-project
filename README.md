@@ -12,8 +12,14 @@ When restarting the project, It can restore the state from the file.
 5. Run <code> java ToDoList </code> to execute the code
 
 # How to Use
-It gives user below menu to choose some option like 1,2,3 for different operation
+It shows user Total tasks, ToDo and done tasks, Task list and then shows below menu to choose some option like 1,2,3 for different operation
 
+Total tasks in your bucket:3!
+You have 3 tasks todo and 0 tasks are done!
+Here goes the Tasks list
+1. NewTitle           Home          Fri,30 Mar 2018         To DO
+2. Exercise           Fitness          Sat,31 Mar 2018         To DO
+3. Shopping           Home          Sat,7 Apr 2018         To DO
 Welcome to ToDoList.Please choose some option
 -----------------------------------------------
 1. Add Task
@@ -94,7 +100,7 @@ Welcome to To Do List.Please choose some option
 7. Go back to ToDo List main menu
 -----------------------------------------------
 
-If User select 7,It taskes user to previous menu
+If User select 7,It takes user to previous menu
 -----------------------------------------------
 7
 
@@ -110,7 +116,7 @@ Welcome to To Do List.Please choose some option
 --------------------------------------------------------
 
 If user choose 5, It asks the project category to filter tasks and show only tasks of that category
----------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------
 5
 
 Enter project category to filter tasks
