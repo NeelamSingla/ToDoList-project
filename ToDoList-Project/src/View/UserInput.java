@@ -29,6 +29,56 @@ public class UserInput {
     }
 
     /**
+     * It shows user Main menu to display option
+     * which allows user to add, update, show tasks
+     */
+    public void showUserMenu() {
+        Scanner sc = new Scanner(System.in);
+        int userChoice = 0;
+        while (userChoice != 6) {
+            System.out.println("--------------------------------------------------------");
+            System.out.println("Welcome to To Do List.Please choose some option");
+            System.out.println("-----------------------------------------------");
+            System.out.println("1. Add Task");
+            System.out.println("2. Edit Task");
+            System.out.println("3. Display Task sorted by date ");
+            System.out.println("4. Display Task sorted by project");
+            System.out.println("5. Display Task filtered by project");
+            System.out.println("6. Save and Quit");
+            System.out.println("--------------------------------------------------------");
+            userChoice = sc.nextInt();
+            switch (userChoice) {
+                case 1:
+                    Object o = enterTaskDetails();
+                    if (o != null) {
+                        taskManagerController.addTask(o);
+                    }
+                    break;
+                case 2:
+                    editTaskDetails();
+                    break;
+                case 3:
+                    taskManagerController.sortByDate();
+                    break;
+                case 4:
+                    taskManagerController.sortByProject();
+                    break;
+                case 5:
+                    System.out.println("Enter project category to filter tasks");
+                    String projectCategoryToFilter = enterTaskCategory();
+                    taskManagerController.filterByProject(projectCategoryToFilter);
+                    break;
+                case 6:
+                    taskManagerController.saveToFile();
+                    System.out.println(ResourceMessages.THANKYOU_MSG);
+                    break;
+                default:
+                    System.out.println(ResourceMessages.VALIDMENUOPTION_MSG);
+            }
+        }
+    }
+
+    /**
      * Method to take user input for all task details
      *
      * @return Task as Object
@@ -79,6 +129,10 @@ public class UserInput {
         return taskCategory;
     }
 
+    /**
+     * It allows to enter task date
+     * @return due Date of task only if it is future date
+     */
     Date enterTaskDate() {
         Scanner sc = new Scanner(System.in);
         try {

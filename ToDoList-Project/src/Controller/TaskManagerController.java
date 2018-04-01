@@ -98,7 +98,7 @@ public class TaskManagerController {
      *
      * @param taskTitle
      * @param taskCategory
-     * @return Task if it is present
+     * @return Task as object if it is present
      */
     public Object selectGivenTask(String taskTitle, String taskCategory) {
         Object selectedTask = taskManager.selectGivenTask(taskTitle, taskCategory);
@@ -124,6 +124,7 @@ public class TaskManagerController {
      *
      * @param oldTask- task to be updated
      * @param updatedTask - task with new details
+     * @return  updated task as Object
      */
     public Object updateTask(Object oldTask, Object updatedTask) {
         Object taskUpdated =taskManager.updateTask(oldTask, updatedTask);
@@ -134,6 +135,7 @@ public class TaskManagerController {
      * Update Task title for existing task
      * @param oldTask
      * @param updatedTaskTitle 
+     * @return  updated task as Object
      */
     public Object updateTaskByTitle(Object oldTask, String updatedTaskTitle) {
         Object taskUpdated =taskManager.updateTaskByTitle(oldTask, updatedTaskTitle);
@@ -144,6 +146,7 @@ public class TaskManagerController {
      * Update Task Category for existing task
      * @param oldTask
      * @param updatedTaskCategory 
+     * @return  updated task as Object
      */
     public Object updateTaskByCategory(Object oldTask, String updatedTaskCategory) {
         Object taskUpdated =taskManager.updateTaskByCategory(oldTask, updatedTaskCategory);
@@ -154,6 +157,7 @@ public class TaskManagerController {
      * Update Task Due date for existing task
      * @param oldTask
      * @param date 
+     * @return  updated task as Object
      */
     public Object updateTaskByDate(Object oldTask, Date date) {
         Object taskUpdated=taskManager.updateTaskByDate(oldTask, date);
