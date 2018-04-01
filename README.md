@@ -63,9 +63,9 @@ Enter Task Category
 home
 
 it shows existing task if any and gives option menu to edit it.
-home  shopping  2018-00-20  Done
 
 Shopping           Home          Fri,30 Mar 2018         To DO
+
 -----------------------------------------------
 Welcome to To Do List.Please choose some option
 1. Edit Task
@@ -79,12 +79,16 @@ Welcome to To Do List.Please choose some option
 
 Now user can select any option to update it.
 
-If user choose 2, It allows to update only Title.
+If User select 2,It allows to update only Title
+-----------------------------------------------
 
 2
 Enter Task Title
+
 newTitle
+
 Updated Task:NewTitle           Home          Fri,30 Mar 2018         To DO
+
 -----------------------------------------------
 Welcome to To Do List.Please choose some option
 1. Edit Task
@@ -95,8 +99,11 @@ Welcome to To Do List.Please choose some option
 6. Remove Task
 7. Go back to ToDo List main menu
 -----------------------------------------------
-f user choose 7,It takes user to previous menu.
+
+If User select 7,It takes user to previous menu
+-----------------------------------------------
 7
+
 --------------------------------------------------------
 Welcome to To Do List.Please choose some option
 -----------------------------------------------
@@ -107,17 +114,23 @@ Welcome to To Do List.Please choose some option
 5. Display Task filtered by project
 6. Save and Quit
 --------------------------------------------------------
+
 If user choose 5, It asks the project category to filter tasks and show only tasks of that category
+------------------------------------------------------------------------
 5
 
 Enter project category to filter tasks
+
 Enter Task category
+
 home
 
 NewTitle           Home          Fri,30 Mar 2018         To DO
+
 Shopping           Home          Sat,7 Apr 2018         To DO
 
 If user choose 6, It saves task in file and shows
+-------------------------------------------------
 below message
 Thanks for using TodoList
 
