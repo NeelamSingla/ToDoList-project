@@ -1,4 +1,4 @@
-package ToDoListModel;
+package Controller;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -129,7 +129,8 @@ public class Task implements Serializable, Comparable<Task> {
         String taskProjectCapitalized = prjt1 + this.getTaskProject().substring(1);
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE,d MMM yyyy");
         return taskTitleCapitalized + "           " + taskProjectCapitalized
-                + "          " + simpleDateFormat.format(this.dueDate) + "         " + this.getTaskStatus();
+                + "          " + simpleDateFormat.format(this.dueDate)
+                + "         " + this.getTaskStatus();
     }
 
     /**

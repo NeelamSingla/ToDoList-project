@@ -3,6 +3,7 @@ package Startup;
 import Controller.ResourceMessages;
 import Controller.TaskManagerController;
 import View.UserInput;
+import java.io.IOException;
 import java.util.InputMismatchException;
 
 /**
@@ -22,9 +23,10 @@ public class TodoListStartup {
         boolean isValid = true;
         while (isValid) {
             try {
-                
+
                 TaskManagerController taskManagerController = new TaskManagerController();
                 taskManagerController.InitilizeSavedTaskList();
+                taskManagerController.sendNotification();
                 UserInput userInput = new UserInput(taskManagerController);
                 userInput.showUserMenu();
                 isValid = false;

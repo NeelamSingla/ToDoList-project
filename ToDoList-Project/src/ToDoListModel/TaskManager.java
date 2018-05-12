@@ -1,11 +1,17 @@
 package ToDoListModel;
 
+import Controller.Task;
 import Controller.ResourceMessages;
+import NotificationUtility.SendEmail;
 import java.util.*;
 import java.util.Date;
 import java.io.File;
 import FileUtility.ReadFromFile;
 import FileUtility.SaveToFile;
+import NotificationUtility.SendMessage;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 /**
  * Task Manager class like Model to perform all task related stuff Controller
@@ -38,6 +44,29 @@ public class TaskManager {
     }
 
     /**
+     * It is a method to notify users by email with all tasks with Due date one
+     * day more than current date
+     */
+    public void sendNotification() {
+        LocalDate tomorrow = LocalDate.now().plusDays(1);
+        StringBuilder taskDetails = new StringBuilder("");
+        tasklist.forEach((t) -> {
+            LocalDate taskDueDate = t.getTaskDueDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            if (taskDueDate.compareTo(tomorrow) == 0 && t.getTaskStatus() == "To DO") {
+                taskDetails.append(t.toString());
+            }
+        });
+        if (!taskDetails.toString().isEmpty()) {
+            SendEmail send = new SendEmail(ResourceMessages.RECIEVEREMAILID_MSG, ResourceMessages.SENDEMAILSUBJECT_MSG, taskDetails.toString());
+            try {
+                SendMessage.sendSMS(taskDetails.toString());
+            } catch (IOException ex) {
+                System.out.println("Error in sending message");
+            }
+        }
+    }
+
+    /**
      * Create new task with given details
      *
      * @param taskTitle
@@ -54,11 +83,10 @@ public class TaskManager {
     /**
      * Add Task if it does not exist earlier
      *
-     * @param o Task passed as object
+     * @param newTask
      * @return true if task is added otherwise returns false
      */
-    public boolean addTask(Object o) {
-        Task newTask = (Task) o;
+    public boolean addTask(Task newTask) {
         if (!checkIfTaskExists(newTask)) {
             tasklist.add(newTask);
             return true;
@@ -72,11 +100,11 @@ public class TaskManager {
      *
      * @param oldTask- old task details to be updated
      * @param updatedTask - task with new details
-     * @return updated task 
+     * @return updated task
      */
-    public Task updateTask(Object oldTask, Object updatedTask) {
-        Task task = (Task) oldTask;
-        Task updated = (Task) updatedTask;
+    public Task updateTask(Task oldTask, Task updatedTask) {
+        Task task = oldTask;
+        Task updated = updatedTask;
         int index = tasklist.indexOf(task);
         tasklist.set(index, updated);
         return updated;
@@ -90,8 +118,8 @@ public class TaskManager {
      * @param updatedTaskTitle - updated title
      * @return
      */
-    public Task updateTaskByTitle(Object oldTask, String updatedTaskTitle) {
-        Task task = (Task) oldTask;
+    public Task updateTaskByTitle(Task oldTask, String updatedTaskTitle) {
+        Task task = oldTask;
         task.setTaskTitle(updatedTaskTitle);
         int index = tasklist.indexOf(task);
         tasklist.set(index, task);
@@ -106,8 +134,8 @@ public class TaskManager {
      * @param updatedTaskCategory - Updated task category
      * @return
      */
-    public Task updateTaskByCategory(Object oldTask, String updatedTaskCategory) {
-        Task task = (Task) oldTask;
+    public Task updateTaskByCategory(Task oldTask, String updatedTaskCategory) {
+        Task task = oldTask;
         task.setTaskCategory(updatedTaskCategory);
         int index = tasklist.indexOf(task);
         tasklist.set(index, task);
@@ -121,8 +149,8 @@ public class TaskManager {
      * @param date-Updated Task Due Date
      * @return
      */
-    public Task updateTaskByDate(Object oldTask, Date date) {
-        Task task = (Task) oldTask;
+    public Task updateTaskByDate(Task oldTask, Date date) {
+        Task task = oldTask;
         task.setTaskDueDate(date);
         int index = tasklist.indexOf(task);
         tasklist.set(index, task);
@@ -132,10 +160,9 @@ public class TaskManager {
     /**
      * Delete Task passed as object
      *
-     * @param o It is Task type object
+     * @param taskToRemove
      */
-    public void deleteTask(Object o) {
-        Task taskToRemove = (Task) o;
+    public void deleteTask(Task taskToRemove) {
         tasklist.remove(taskToRemove);
     }
 
@@ -146,7 +173,7 @@ public class TaskManager {
     public void displayAll() {
         int toDoTaskCount = getCountOfToDoTasks();
         int doneTaskCount = getCountOfDoneTasks();
-        System.out.println("Total tasks in your bucket:" + getCountOfTotalTasks() +"!");
+        System.out.println("Total tasks in your bucket:" + getCountOfTotalTasks() + "!");
         System.out.println("You have " + toDoTaskCount + " tasks todo and "
                 + doneTaskCount + " tasks are done!");
         System.out.println("Here goes the Tasks list");
@@ -253,10 +280,9 @@ public class TaskManager {
     /**
      * Mark Task status as Done
      *
-     * @param o its Task passed as Object
+     * @param markTaskDone
      */
-    public void markAsDone(Object o) {
-        Task markTaskDone = (Task) o;
+    public void markAsDone(Task markTaskDone) {
         if ((markTaskDone) != null) {
             markTaskDone.setTaskStatusDone();
         }
@@ -288,7 +314,7 @@ public class TaskManager {
         int CountOfToDoTasks = (int) tasklist.stream().filter(task -> task.getTaskStatus().equals("To DO")).count();
         return CountOfToDoTasks;
     }
-    
+
     /**
      * Method to count total tasks in list
      *

@@ -1,5 +1,6 @@
 package ToDoListModel;
 
+import Controller.Task;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.text.ParseException;
@@ -45,7 +46,7 @@ public class TaskManagerTest {
     @After
     public void tearDown() {
     }
-    
+
     /**
      * set up stream to test print statement
      */
@@ -61,46 +62,42 @@ public class TaskManagerTest {
 
     /**
      * Test of createTask method, of class TaskManager.
+     *
+     * @throws java.text.ParseException
      */
     @Test
-    public void testCreateTask() {
-        try {
-            Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
-            Object CreatedTask = taskManager.createTask("shopping", "Home", false, dueDate);
-            expectedTask = new Task("shopping", "Home", false, dueDate);
-            assertEquals(CreatedTask, CreatedTask);
-        } catch (InputMismatchException | ParseException e) {
-        }
+    public void testCreateTask() throws ParseException {
+        Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
+        Task createdTask = taskManager.createTask("shopping", "Home", false, dueDate);
+        Task expectedTask = new Task("shopping", "Home", false, dueDate);
+        assertEquals(expectedTask, createdTask);
+
     }
 
     /**
      * Test of addTask method, of class TaskManager.
      */
     @Test
-    public void testAddTask() {
-        try {
-            Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
-            Object CreatedTask = taskManager.createTask("shopping", "Home", false, dueDate);
-            boolean isTaskAdded = taskManager.addTask(CreatedTask);
-            assertEquals(true, isTaskAdded);
-        } catch (InputMismatchException | ParseException e) {
-        }
+    public void testAddTask() throws ParseException {
+        Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
+        Task createdTask = taskManager.createTask("shopping", "Home", false, dueDate);
+        boolean isTaskAdded = taskManager.addTask(createdTask);
+        assertEquals(true, isTaskAdded);
+
     }
 
     /**
      * Test of addTask method, of class TaskManager.
      */
     @Test
-    public void testAddDuplicateTask() {
-        try {
-            Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
-            Object CreatedTask = taskManager.createTask("shopping", "Home", false, dueDate);
-            boolean isTaskAdded = taskManager.addTask(CreatedTask);
-            Boolean IfTaskExists = taskManager.checkIfTaskExists((Task) CreatedTask);
-            boolean isSameTaskAdded = taskManager.addTask(CreatedTask);
-            assertEquals(false, isSameTaskAdded);
-        } catch (InputMismatchException | ParseException e) {
-        }
+    public void testAddDuplicateTask() throws ParseException {
+        Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
+        Task createdTask = taskManager.createTask("shopping", "Home", false, dueDate);
+        boolean isTaskAdded = taskManager.addTask(createdTask);
+        Boolean IfTaskExists = taskManager.checkIfTaskExists((Task) createdTask);
+        boolean isSameTaskAdded = taskManager.addTask(createdTask);
+        assertEquals(false, isSameTaskAdded);
+
     }
 
     /**
@@ -109,8 +106,8 @@ public class TaskManagerTest {
     @Ignore
     public void testUpdateTask() {
         System.out.println("updateTask");
-        Object oldTask = null;
-        Object updatedTask = null;
+        Task oldTask = null;
+        Task updatedTask = null;
         TaskManager instance = new TaskManager();
         instance.updateTask(oldTask, updatedTask);
         // TODO review the generated test code and remove the default call to fail.
@@ -121,17 +118,15 @@ public class TaskManagerTest {
      * Test of deleteTask method, of class TaskManager.
      */
     @Test
-    public void testDeleteTask() {
-        try {
-            Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
-            Object CreatedTask = taskManager.createTask("shopping", "Home", false, dueDate);
-            boolean isTaskAdded = taskManager.addTask(CreatedTask);
-            taskManager.deleteTask(CreatedTask);
-            Boolean IfTaskExists = taskManager.checkIfTaskExists((Task) CreatedTask);
+    public void testDeleteTask() throws ParseException {
+        Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
+        Task createdTask = taskManager.createTask("shopping", "Home", false, dueDate);
+        boolean isTaskAdded = taskManager.addTask(createdTask);
+        taskManager.deleteTask(createdTask);
+        boolean IfTaskExists = taskManager.checkIfTaskExists((Task) createdTask);
 
-            assertEquals(false, IfTaskExists);
-        } catch (InputMismatchException | ParseException e) {
-        }
+        assertEquals(false, IfTaskExists);
+
     }
 
     /**
@@ -149,17 +144,16 @@ public class TaskManagerTest {
 
     /**
      * Test of saveToFile method, of class TaskManager.
+     *
+     * @throws java.text.ParseException
      */
     @Test
-    public void testSaveToFile() {
-       Date dueDate = null;
-        try {
-            dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
-        } catch (ParseException ex) {
-            Logger.getLogger(TaskManagerTest.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            Object CreatedTask = taskManager.createTask("shopping", "Home", false, dueDate);
-            taskManager.addTask(CreatedTask);
+    public void testSaveToFile() throws ParseException {
+        Date dueDate = null;
+        dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
+
+        Task createdTask = taskManager.createTask("shopping", "Home", false, dueDate);
+        taskManager.addTask(createdTask);
         taskManager.saveToFile();
         testInitilizeSavedTaskList();
         String expected = "Shopping           Home          Sat,1 Dec 2018         To DO";
@@ -200,50 +194,50 @@ public class TaskManagerTest {
 
     /**
      * Test of checkIfTaskExists method, of class TaskManager.
+     *
+     * @throws java.text.ParseException
      */
     @Test
-    public void testCheckIfTaskExists() {
-        try {
-            Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
-            Object CreatedTask = taskManager.createTask("shopping", "Home", false, dueDate);
-            boolean isTaskAdded = taskManager.addTask(CreatedTask);
-            Boolean IfTaskExists = taskManager.checkIfTaskExists((Task) CreatedTask);
-            assertEquals(true, IfTaskExists);
-        } catch (InputMismatchException | ParseException e) {
-        }
+    public void testCheckIfTaskExists() throws ParseException {
+        Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
+        Task createdTask = taskManager.createTask("shopping", "Home", false, dueDate);
+        taskManager.addTask(createdTask);
+        boolean ifTaskExists = taskManager.checkIfTaskExists((Task) createdTask);
+        assertEquals(true, ifTaskExists);
+
     }
 
     /**
      * Test of selectGivenTask method, of class TaskManager.
+     *
+     * @throws java.text.ParseException
      */
     @Test
-    public void testSelectGivenTask() {
-        try {
-            Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
-            Object CreatedTask = taskManager.createTask("shopping", "Home", false, dueDate);
-            boolean isTaskAdded = taskManager.addTask(CreatedTask);
-            Task expected = (Task) CreatedTask;
-            Task result = taskManager.selectGivenTask("shopping", "Home");
-            assertEquals(expected, result);
-        } catch (InputMismatchException | ParseException e) {
-        }
+    public void testSelectGivenTask() throws ParseException {
+        Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
+        Task createdTask = taskManager.createTask("shopping", "Home", false, dueDate);
+        Task expected = createdTask;
+        taskManager.addTask(createdTask);
+        Task result = taskManager.selectGivenTask("shopping", "Home");
+        assertEquals(expected, result);
+
     }
 
     /**
      * Test of markAsDone method, of class TaskManager.
+     *
+     * @throws java.text.ParseException
      */
     @Test
-    public void testMarkAsDone() {
+    public void testMarkAsDone() throws ParseException {
         {
-            try {
-                Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
-                Object CreatedTask = taskManager.createTask("shopping", "Home", false, dueDate);
-                boolean isTaskAdded = taskManager.addTask(CreatedTask);
-                taskManager.markAsDone((Task) CreatedTask);
-                String result = ((Task) CreatedTask).getTaskStatus();
-                assertEquals("Done", result);
-            } catch (InputMismatchException | ParseException e) {
-            }
+            Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
+            Task createdTask = taskManager.createTask("shopping", "Home", false, dueDate);
+            taskManager.addTask(createdTask);
+            taskManager.markAsDone((Task) createdTask);
+            String result = ((Task) createdTask).getTaskStatus();
+            assertEquals("Done", result);
+
         }
     }
 

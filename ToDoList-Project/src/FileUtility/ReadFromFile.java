@@ -20,21 +20,21 @@ public final class ReadFromFile {
      *
      * @param <T> It is generic data type
      * @param file - file name from where it can read tasks
-     * @return Collection of T type objects from file if any to display 
+     * @return Collection of T type objects from file if any to display
      */
     public static <T> List<T> initializeListFromFile(File file) {
 
         List<T> tasklist = new ArrayList<>();
         try {
             if (file.exists()) {
-                ObjectInputStream oi = new ObjectInputStream(new FileInputStream(file));
-                T readTask;
-                while ((readTask = (T) oi.readObject()) != null) {
-                    // Read objects
-                    tasklist.add(readTask);
+                try (ObjectInputStream oi = new ObjectInputStream(new FileInputStream(file))) {
+                    T readTask;
+                    while ((readTask = (T) oi.readObject()) != null) {
+                        // Read objects
+                        tasklist.add(readTask);
+                    }
                 }
-                oi.close();
-                
+
                 return tasklist;
             } else {
                 file.createNewFile();
@@ -42,10 +42,9 @@ public final class ReadFromFile {
 
         } catch (FileNotFoundException e) {
             System.out.println("File not found");
-        } catch (EOFException e) {
+        } catch (EOFException | ClassNotFoundException e) {
         } catch (IOException e) {
             System.out.println("Error initializing stream");
-        } catch (ClassNotFoundException e) {
         }
         return tasklist;
 

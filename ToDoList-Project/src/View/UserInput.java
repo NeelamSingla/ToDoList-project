@@ -1,14 +1,13 @@
 package View;
 
 import Controller.ResourceMessages;
+import Controller.Task;
 import Controller.TaskManagerController;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Class to interact with user input like View
@@ -29,8 +28,8 @@ public class UserInput {
     }
 
     /**
-     * It shows user Main menu to display option
-     * which allows user to add, update, show tasks
+     * It shows user Main menu to display option which allows user to add,
+     * update, show tasks
      */
     public void showUserMenu() {
         Scanner sc = new Scanner(System.in);
@@ -49,10 +48,11 @@ public class UserInput {
             userChoice = sc.nextInt();
             switch (userChoice) {
                 case 1:
-                    Object o = enterTaskDetails();
-                    if (o != null) {
-                        taskManagerController.addTask(o);
+                    Task task = enterTaskDetails();
+                    if (task != null) {
+                        taskManagerController.addTask(task);
                     }
+
                     break;
                 case 2:
                     editTaskDetails();
@@ -83,21 +83,21 @@ public class UserInput {
      *
      * @return Task as Object
      */
-    public Object enterTaskDetails() {
+    public Task enterTaskDetails() {
         try {
             Scanner sc = new Scanner(System.in);
             String taskTitle, taskCategory;
             boolean taskStatus;
             Date dueDate;
-            Object CreatedTask;
+            Task createdTask;
             taskTitle = enterTaskTitle();
             taskCategory = enterTaskCategory();
             System.out.println("Enter Task status, Done-True/False");
             taskStatus = sc.nextBoolean();
             dueDate = enterTaskDate();
             if (dueDate != null) {
-                CreatedTask = taskManagerController.createTask(taskTitle, taskCategory, taskStatus, dueDate);
-                return CreatedTask;
+                createdTask = taskManagerController.createTask(taskTitle, taskCategory, taskStatus, dueDate);
+                return createdTask;
             }
         } catch (InputMismatchException e) {
             System.out.println("Invalid input!");
@@ -131,6 +131,7 @@ public class UserInput {
 
     /**
      * It allows to enter task date
+     *
      * @return due Date of task only if it is future date
      */
     Date enterTaskDate() {
@@ -146,7 +147,7 @@ public class UserInput {
                 System.out.println(ResourceMessages.VALIDFUTUREDATE_MSG);
             }
         } catch (ParseException ex) {
-            Logger.getLogger(UserInput.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Invalid Date format");
         }
         return null;
     }
@@ -162,7 +163,7 @@ public class UserInput {
             String taskIndexChoice;
             Scanner sc = new Scanner(System.in);
             String taskTitle, taskCategory;
-            Object taskToUpdate, updatedTask = null;
+            Task taskToUpdate, updatedTask = null;
             System.out.println("Do you want to update by Index? Enter Yes / No");
             taskIndexChoice = sc.nextLine();
 
@@ -200,7 +201,7 @@ public class UserInput {
                     switch (userChoice) {
 
                         case 1:
-                            Object updatedDetails = enterTaskDetails();
+                            Task updatedDetails = enterTaskDetails();
                             updatedTask = taskManagerController.updateTask(taskToUpdate, updatedDetails);
                             System.out.println("Updated Task:" + updatedTask.toString());
                             break;

@@ -1,6 +1,7 @@
 package Controller;
 
 import ToDoListModel.TaskManager;
+import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
  * @author Neelam Singla
  */
 public class TaskManagerController {
-    
+
     TaskManager taskManager;
 
     /**
@@ -18,7 +19,7 @@ public class TaskManagerController {
      */
     public TaskManagerController() {
         taskManager = new TaskManager();
-        
+
     }
 
     /**
@@ -26,7 +27,15 @@ public class TaskManagerController {
      */
     public void InitilizeSavedTaskList() {
         taskManager.initializeListFromFile();
-        
+
+    }
+
+    /**
+     * It sends notification email to user if task due date is tomorrow and not
+     * done yet
+     */
+    public void sendNotification() {
+        taskManager.sendNotification();
     }
 
     /**
@@ -38,19 +47,19 @@ public class TaskManagerController {
      * @param dueDate
      * @return
      */
-    public Object createTask(String taskTitle, String taskCategory, boolean taskStatus, Date dueDate) {
-        Object CreatedTask = taskManager.createTask(taskTitle, taskCategory, taskStatus, dueDate);
-        
+    public Task createTask(String taskTitle, String taskCategory, boolean taskStatus, Date dueDate) {
+        Task CreatedTask = taskManager.createTask(taskTitle, taskCategory, taskStatus, dueDate);
+
         return CreatedTask;
     }
 
     /**
      * Add Task in list passed as Object
      *
-     * @param o -Its a new task passed as object
+     * @param task
      */
-    public void addTask(Object o) {
-        boolean isTaskCreated = taskManager.addTask(o);
+    public void addTask(Task task) {
+        boolean isTaskCreated = taskManager.addTask(task);
         if (!isTaskCreated) {
             System.out.println(ResourceMessages.TASKEXIST_MSG);
         } else {
@@ -79,12 +88,15 @@ public class TaskManagerController {
         taskManager.sortByProject();
     }
 
-     /**
+    /**
      * Filter Task by project
+     *
+     * @param projectCategoryToFilter
      */
     public void filterByProject(String projectCategoryToFilter) {
         taskManager.filterByProject(projectCategoryToFilter);
     }
+
     /**
      * Save Task to file
      */
@@ -100,11 +112,11 @@ public class TaskManagerController {
      * @param taskCategory
      * @return Task as object if it is present
      */
-    public Object selectGivenTask(String taskTitle, String taskCategory) {
-        Object selectedTask = taskManager.selectGivenTask(taskTitle, taskCategory);
-        
+    public Task selectGivenTask(String taskTitle, String taskCategory) {
+        Task selectedTask = taskManager.selectGivenTask(taskTitle, taskCategory);
+
         return selectedTask;
-        
+
     }
 
     /**
@@ -114,8 +126,8 @@ public class TaskManagerController {
      * @param taskIndex
      * @return
      */
-    public Object selectGivenTask(int taskIndex) {
-        Object selectedTask = taskManager.selectGivenTask(taskIndex);
+    public Task selectGivenTask(int taskIndex) {
+        Task selectedTask = taskManager.selectGivenTask(taskIndex);
         return selectedTask;
     }
 
@@ -124,43 +136,46 @@ public class TaskManagerController {
      *
      * @param oldTask- task to be updated
      * @param updatedTask - task with new details
-     * @return  updated task as Object
+     * @return updated task as Object
      */
-    public Object updateTask(Object oldTask, Object updatedTask) {
-        Object taskUpdated =taskManager.updateTask(oldTask, updatedTask);
+    public Task updateTask(Task oldTask, Task updatedTask) {
+        Task taskUpdated = taskManager.updateTask(oldTask, updatedTask);
         return taskUpdated;
     }
-    
+
     /**
      * Update Task title for existing task
+     *
      * @param oldTask
-     * @param updatedTaskTitle 
-     * @return  updated task as Object
+     * @param updatedTaskTitle
+     * @return updated task as Object
      */
-    public Object updateTaskByTitle(Object oldTask, String updatedTaskTitle) {
-        Object taskUpdated =taskManager.updateTaskByTitle(oldTask, updatedTaskTitle);
+    public Task updateTaskByTitle(Task oldTask, String updatedTaskTitle) {
+        Task taskUpdated = taskManager.updateTaskByTitle(oldTask, updatedTaskTitle);
         return taskUpdated;
     }
 
     /**
      * Update Task Category for existing task
+     *
      * @param oldTask
-     * @param updatedTaskCategory 
-     * @return  updated task as Object
+     * @param updatedTaskCategory
+     * @return updated task as Object
      */
-    public Object updateTaskByCategory(Object oldTask, String updatedTaskCategory) {
-        Object taskUpdated =taskManager.updateTaskByCategory(oldTask, updatedTaskCategory);
+    public Task updateTaskByCategory(Task oldTask, String updatedTaskCategory) {
+        Task taskUpdated = taskManager.updateTaskByCategory(oldTask, updatedTaskCategory);
         return taskUpdated;
     }
 
     /**
      * Update Task Due date for existing task
+     *
      * @param oldTask
-     * @param date 
-     * @return  updated task as Object
+     * @param date
+     * @return updated task as Object
      */
-    public Object updateTaskByDate(Object oldTask, Date date) {
-        Object taskUpdated=taskManager.updateTaskByDate(oldTask, date);
+    public Task updateTaskByDate(Task oldTask, Date date) {
+        Task taskUpdated = taskManager.updateTaskByDate(oldTask, date);
         return taskUpdated;
     }
 
@@ -169,7 +184,7 @@ public class TaskManagerController {
      *
      * @param o It is Task type object
      */
-    public void deleteTask(Object o) {
+    public void deleteTask(Task o) {
         taskManager.deleteTask(o);
     }
 
@@ -178,8 +193,8 @@ public class TaskManagerController {
      *
      * @param o its Task passed as Object
      */
-    public void markAsDone(Object o) {
+    public void markAsDone(Task o) {
         taskManager.markAsDone(o);
     }
-    
+
 }

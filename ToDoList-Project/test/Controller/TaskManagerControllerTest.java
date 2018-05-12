@@ -1,6 +1,5 @@
 package Controller;
 
-import ToDoListModel.Task;
 import ToDoListModel.TaskManager;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -49,7 +48,7 @@ public class TaskManagerControllerTest {
     @After
     public void tearDown() {
     }
-    
+
     /**
      * set up stream to test print statement
      */
@@ -63,7 +62,6 @@ public class TaskManagerControllerTest {
         System.setOut(System.out);
     }
 
-
     /**
      * Test of enterTaskDetails method, of class TaskManagerController.
      */
@@ -72,7 +70,7 @@ public class TaskManagerControllerTest {
         try {
 
             Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01");
-            Object CreatedTask = taskManager.createTask("shopping", "Home", false, dueDate);
+            Task createdTask = taskManager.createTask("shopping", "Home", false, dueDate);
             fail("Invalid Date");
         } catch (InputMismatchException | ParseException e) {
         }
@@ -86,10 +84,10 @@ public class TaskManagerControllerTest {
     public void testAddTask() {
         try {
             Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
-            Object CreatedTask = taskManager.createTask("shopping", "Home", false, dueDate);
+            Task CreatedTask = taskManager.createTask("shopping", "Home", false, dueDate);
             String actual, expected = "Task is added in TODO List";
             taskManagerController.addTask(CreatedTask);
-            Boolean IfTaskExists = taskManager.checkIfTaskExists((Task) CreatedTask);
+            boolean IfTaskExists = taskManager.checkIfTaskExists((Task) CreatedTask);
             if (!IfTaskExists) {
                 actual = "Task is added in TODO List";
             } else {
@@ -107,11 +105,11 @@ public class TaskManagerControllerTest {
     public void testAddTaskforDuplicateTask() {
         try {
             Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
-            Object CreatedTask = taskManager.createTask("shopping", "Home", false, dueDate);
+            Task CreatedTask = taskManager.createTask("shopping", "Home", false, dueDate);
             String actual, expected = "Task is already present in TODO List";
 
             taskManagerController.addTask(CreatedTask);
-            Boolean IfTaskExists = taskManager.addTask(CreatedTask);
+            boolean IfTaskExists = taskManager.addTask(CreatedTask);
             if (!IfTaskExists) {
                 actual = "Task is added in TODO List";
             } else {
@@ -145,12 +143,12 @@ public class TaskManagerControllerTest {
     public void testEditTaskDetails() {
         try {
             Date dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
-            Object CreatedTask = taskManager.createTask("shopping", "Home", false, dueDate);
+            Task createdTask = taskManager.createTask("shopping", "Home", false, dueDate);
             String actual, expected = "Personal";
-            taskManagerController.addTask(CreatedTask);
-            String UpdatedCategory="Personal";
-            Object updated=taskManagerController.updateTaskByCategory(CreatedTask, UpdatedCategory);
-            actual= ((Task)updated).getTaskProject();
+            taskManagerController.addTask(createdTask);
+            String UpdatedCategory = "Personal";
+            Task updated = taskManagerController.updateTaskByCategory(createdTask, UpdatedCategory);
+            actual = (updated).getTaskProject();
             assertEquals(expected, actual);
         } catch (InputMismatchException | ParseException e) {
         }
@@ -163,14 +161,14 @@ public class TaskManagerControllerTest {
     @Test
     public void testSaveToFile() {
         TaskManagerController instance = new TaskManagerController();
-       Date dueDate = null;
+        Date dueDate = null;
         try {
             dueDate = new SimpleDateFormat("dd/MM/yyyy").parse("01/12/2018");
         } catch (ParseException ex) {
             Logger.getLogger(TaskManagerControllerTest.class.getName()).log(Level.SEVERE, null, ex);
         }
-            Object CreatedTask = instance.createTask("shopping", "Home", false, dueDate);
-            instance.addTask(CreatedTask);
+        Task CreatedTask = instance.createTask("shopping", "Home", false, dueDate);
+        instance.addTask(CreatedTask);
         instance.saveToFile();
         testInitilizeSavedTaskList();
         String expected = "Shopping           Home          Sat,1 Dec 2018         To DO";
